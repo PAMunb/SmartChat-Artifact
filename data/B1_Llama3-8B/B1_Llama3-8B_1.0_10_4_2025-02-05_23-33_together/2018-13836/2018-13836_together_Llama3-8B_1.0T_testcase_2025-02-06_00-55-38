@@ -1,0 +1,126 @@
+[
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "12345678",
+                "Blocknum": "23456789"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "name",
+                    "Timestamp": "12345690",
+                    "Blocknum": "23456783"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "balanceOf",
+                    "Params": ["SmartianAgent2"],
+                    "Timestamp": "12345701",
+                    "Blocknum": "23456786"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "1",
+                    "Function": "transfer",
+                    "Params": [
+                        ["0x0000000000000000000000000000000000000003"],
+                        ["1"]
+                    ],
+                    "Timestamp": "12345717",
+                    "Blocknum": "23456792"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "2",
+                    "Function": "allowance",
+                    "Params": ["SmartianAgent2", "SmartianAgent1"],
+                    "Timestamp": "12345729",
+                    "Blocknum": "23456803"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "fallback",
+                    "Timestamp": "12345739",
+                    "Blocknum": "23456811"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "1",
+                    "Function": "decimals",
+                    "Timestamp": "12345750",
+                    "Blocknum": "23456821"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent2",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "24690123",
+                "Blocknum": "24690125"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "approve",
+                    "Params": ["SmartianAgent1", "100"],
+                    "Timestamp": "24690139",
+                    "Blocknum": "24690132"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "totalSupply",
+                    "Timestamp": "24690152",
+                    "Blocknum": "24690141"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "2",
+                    "Function": "transferFrom",
+                    "Params": ["SmartianAgent2", "SmartianAgent3", "100"],
+                    "Timestamp": "24690163",
+                    "Blocknum": "24690155"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "3",
+                    "Function": "symbol",
+                    "Timestamp": "24690177",
+                    "Blocknum": "24690170"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "withdrawFunds",
+                    "Params": ["SmartianAgent1"],
+                    "Timestamp": "24690192",
+                    "Blocknum": "24690190"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "4",
+                    "Function": "setupAirDrop",
+                    "Params": [true, "100", "200"],
+                    "Timestamp": "24690206",
+                    "Blocknum": "24690198"
+                }
+            ]
+        }
+    },
+    # ...
+    # ... repeat the process for 7 more test cases.
+]

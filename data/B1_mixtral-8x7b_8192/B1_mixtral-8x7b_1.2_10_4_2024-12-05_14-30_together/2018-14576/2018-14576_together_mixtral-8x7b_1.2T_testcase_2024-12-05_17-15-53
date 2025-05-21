@@ -1,0 +1,245 @@
+ [
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1500000000",
+        "Blocknum": "5000000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "name",
+          "Params": [],
+          "Timestamp": "1500001000",
+          "Blocknum": "5000100"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "approve",
+          "Params": [
+            [
+              "SmartianAgent3"
+            ],
+            [
+              "115792089237316195423570985008687907853269984665640564039457584007913129639937"
+            ]
+          ],
+          "Timestamp": "1500002000",
+          "Blocknum": "5000200"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": [
+            [
+              "SmartianAgent2",
+              "SmartianAgent1"
+            ],
+            [
+              "11579208923731619542357098500868790785326998466564056403945758400791312",
+              "0"
+            ]
+          ],
+          "Timestamp": "1500003000",
+          "Blocknum": "5000300"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "decimals",
+          "Params": [],
+          "Timestamp": "1500004000",
+          "Blocknum": "5000400"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "symbol",
+          "Params": [],
+          "Timestamp": "1500005000",
+          "Blocknum": "5000500"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent2",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "2000000000",
+        "Blocknum": "7000000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "standard",
+          "Params": [],
+          "Timestamp": "2000001000",
+          "Blocknum": "7000100"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "totalSupply",
+          "Params": [],
+          "Timestamp": "2000002000",
+          "Blocknum": "7000200"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "1000000000000000000",
+          "Function": "transfer",
+          "Params": [
+            [
+              "SmartianAgent2"
+            ],
+            [
+              "9999999999999999999"
+            ]
+          ],
+          "Timestamp": "2000003000",
+          "Blocknum": "7000300"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "allowance",
+          "Params": [
+            [
+              "SmartianAgent1",
+              "SmartianAgent4"
+            ]
+          ],
+          "Timestamp": "2000004000",
+          "Blocknum": "7000400"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "500000000000000000",
+          "Function": "approveAndCall",
+          "Params": [
+            [
+              "SmartianAgent2"
+            ],
+            [
+              "500000000000000000",
+              "0x8c81f8dea1150f4c3d9a287e8ee05503da3b58511993baa3b1661933daec9560"
+            ]
+          ],
+          "Timestamp": "2000005000",
+          "Blocknum": "7000500"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent3",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "2500000000",
+        "Blocknum": "8000000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "mintTokens",
+          "Params": [
+            [
+              "SmartianAgent1",
+              "100000000000000000000"
+            ]
+          ],
+          "Timestamp": "2500001000",
+          "Blocknum": "8000100"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "balanceOf",
+          "Params": [
+            [
+              "SmartianAgent3"
+            ]
+          ],
+          "Timestamp": "2500002000",
+          "Blocknum": "8000200"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "1000000000000000000",
+          "Function": "transfer",
+          "Params": [
+            [
+              "SmartianAgent2",
+              "SmartianAgent4"
+            ],
+            [
+              "500000000000000000",
+              "500000000000000000"
+            ]
+          ],
+          "Timestamp": "2500003000",
+          "Blocknum": "8000300"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "freezeTransfersUntil",
+          "Params": [
+            [
+              "1000000000",
+              "test string 1"
+            ]
+          ],
+          "Timestamp": "2500004000",
+          "Blocknum": "8000400"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": [
+            [
+              "SmartianAgent1"
+            ]
+          ],
+          "Timestamp": "2500005000",
+          "Blocknum": "8000500"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent4",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "3000000000",
+        "Blocknum": "9000000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "isRestrictedAddress",
+          "Params": [
+            [
+              "0x8c81f8dea1150f4c3d9a287e8ee05503da3b58511993baa3b166193
+```

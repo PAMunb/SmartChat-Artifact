@@ -1,0 +1,170 @@
+ [
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1619185554",
+        "Blocknum": "9710448"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["0x0000000000000000000000000000000000000001", "500000"],
+          "Timestamp": "1619185561",
+          "Blocknum": "9710451"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent1", "0x0000000000000000000000000000000000000001", "750000"],
+          "Timestamp": "1619185571",
+          "Blocknum": "9710461"
+        },
+        {
+          "From": "0x0000000000000000000000000000000000000001",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent2", "500000"],
+          "Timestamp": "1619185571",
+          "Blocknum": "9710461"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": ["SmartianAgent3"],
+          "Timestamp": "1619185581",
+          "Blocknum": "9710471"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent2",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1619185660",
+        "Blocknum": "9710482"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["0x0000000000000000000000000000000000000003", "1000000"],
+          "Timestamp": "1619185675",
+          "Blocknum": "9710512"
+        },
+        {
+          "From": "0x0000000000000000000000000000000000000003",
+          "Value": "1 ether",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent2", "0x0000000000000000000000000000000000000003", "500000"],
+          "Timestamp": "1619185678",
+          "Blocknum": "9710519"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "freezelvlAccount",
+          "Params": ["0x0000000000000000000000000000000000000003", true],
+          "Timestamp": "1619185684",
+          "Blocknum": "9710536"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent3",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1619185730",
+        "Blocknum": "9710566"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "setNominalValue",
+          "Params": "1000",
+          "Timestamp": "1619185735",
+          "Blocknum": "9710576"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["0x0000000000000000000000000000000000000001", "500000"],
+          "Timestamp": "1619185742",
+          "Blocknum": "9710591"
+        },
+        {
+          "From": "0x0000000000000000000000000000000000000001",
+          "Value": "1 ether",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent3", "0x0000000000000000000000000000000000000001", "500000"],
+          "Timestamp": "1619185745",
+          "Blocknum": "9710594"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": ["SmartianAgent3"],
+          "Timestamp": "1619185769",
+          "Blocknum": "9710626"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent4",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1619185832",
+        "Blocknum": "9710646"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["0x0000000000000000000000000000000000000003", "1000000"],
+          "Timestamp": "1619185845",
+          "Blocknum": "9710671"
+        },
+        {
+          "From": "0x0000000000000000000000000000000000000003",
+          "Value": "1 ether",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent4", "0x0000000000000000000000000000000000000003", "500000"],
+          "Timestamp": "1619185850",
+          "Blocknum": "9710687"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "freezelvlAccount",
+          "Params": ["0x0000000000000000000000000000000000000003", true],
+          "Timestamp": "1619185855",
+          "Blocknum": "9710697"
+        }
+      ]
+    }
+  }
+]

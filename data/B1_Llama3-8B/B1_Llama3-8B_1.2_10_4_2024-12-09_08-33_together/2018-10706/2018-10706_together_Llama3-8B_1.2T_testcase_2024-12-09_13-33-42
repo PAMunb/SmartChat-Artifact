@@ -1,0 +1,76 @@
+[
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "10000010",
+                "Blocknum": "20000010"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "changeAirdropTotalQty",
+                    "Params": [
+                        "1"
+                    ],
+                    "Timestamp": "10000020",
+                    "Blocknum": "20000020"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "airdropOf",
+                    "Params": [
+                        "0x0000000000000000000000000000000000000001"
+                    ],
+                    "Timestamp": "10000030",
+                    "Blocknum": "20000030"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "1",
+                    "Function": "transfer",
+                    "Params": [
+                        [
+                            "0x0000000000000000000000000000000000000001"
+                        ],
+                        [
+                            "1"
+                        ]
+                    ],
+                    "Timestamp": "10000040",
+                    "Blocknum": "20000040"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "changeTokenPerEther",
+                    "Params": [
+                        "2"
+                    ],
+                    "Timestamp": "10000050",
+                    "Blocknum": "20000050"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "1",
+                    "Function": "transferFrom",
+                    "Params": [
+                        [
+                            "0x0000000000000000000000000000000000000002"
+                        ],
+                        "0x0000000000000000000000000000000000000001",
+                        "2"
+                    ],
+                    "Timestamp": "10000060",
+                    "Blocknum": "20000060"
+                }
+            ]
+        }
+    },
+    ...
+]

@@ -1,0 +1,274 @@
+ [
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "10000000",
+                "Blocknum": "20000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "approve",
+                    "Params": [
+                        "SmartianAgent2",
+                        "1234567890"
+                    ],
+                    "Timestamp": "10000100",
+                    "Blocknum": "20000020"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "transfer",
+                    "Params": [
+                        "SmartianAgent1",
+                        "1234567890"
+                    ],
+                    "Timestamp": "10000130",
+                    "Blocknum": "20000023"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "allowance",
+                    "Params": [
+                        "SmartianAgent1",
+                        "SmartianAgent2"
+                    ],
+                    "Timestamp": "10000140",
+                    "Blocknum": "20000026"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "1500000000",
+                    "Function": "transfer",
+                    "Params": [
+                        "SmartianAgent4",
+                        "1500000000"
+                    ],
+                    "Timestamp": "10000160",
+                    "Blocknum": "20000030"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Function": "withdrawFunds",
+                    "Timestamp": "10000180",
+                    "Blocknum": "20000040"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent2",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "20000000",
+                "Blocknum": "30000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "setupAirDrop",
+                    "Params": [
+                        true,
+                        5000,
+                        10000
+                    ],
+                    "Timestamp": "20000100",
+                    "Blocknum": "30000010"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "200",
+                    "Function": "syncCloudModules",
+                    "Timestamp": "20000115",
+                    "Blocknum": "30000020"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "isEngaged",
+                    "Timestamp": "20000125",
+                    "Blocknum": "30000030"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "validateFlowRateOfNeighbors",
+                    "Timestamp": "20000145",
+                    "Blocknum": "30000045"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "250000",
+                    "Function": "updateRegulationRecords",
+                    "Params": [
+                        [
+                            "address1",
+                            "address2"
+                        ],
+                        [
+                            100,
+                            125
+                        ]
+                    ],
+                    "Timestamp": "20000180",
+                    "Blocknum": "30000060"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent3",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "40000000",
+                "Blocknum": "50000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "loopExecution",
+                    "Params": [
+                        [
+                            true,
+                            true,
+                            false
+                        ]
+                    ],
+                    "Timestamp": "400001",
+                    "Blocknum": "50000010"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "restartNode",
+                    "Timestamp": "4000010",
+                    "Blocknum": "50000025"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "50",
+                    "Function": "newTask",
+                    "Params": [
+                        true,
+                        {
+                            "time": "25000000",
+                            "cloudModules": [
+                                "c1",
+                                "c2"
+                            ]
+                        }
+                    ],
+                    "Timestamp": "40000115",
+                    "Blocknum": "50000030"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "addAllowedUpdateWorker",
+                    "Timestamp": "40000125",
+                    "Blocknum": "50000032"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "revokeAboveTask",
+                    "Timestamp": "40000128",
+                    "Blocknum": "50000033"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent4",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "21000000",
+                "Blocknum": "70000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "mod",
+                    "Params": [
+                        10,
+                        50,
+                        2
+                    ],
+                    "Timestamp": "21000100",
+                    "Blocknum": "70000010"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "dAddPrint",
+                    "Params": [
+                        "this is eps String1",
+                        "this is eps String2"
+                    ],
+                    "Timestamp": "21000100",
+                    "Blocknum": "70000011"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "includingDepropositions",
+                    "Params": [
+                        ["Indicator2"],
+                        true
+                    ],
+                    "Timestamp": "21000112",
+                    "Blocknum": "70000015"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "800000000",
+                    "Function": "migrateCemFun",
+                    "Timestamp": "21000120",
+                    "Blocknum": "700000205"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "200",
+                    "Function": "finalSetGetFlow,getOfCemTelemetry",
+                    "Params": [
+                        "5"
+                    ],
+                    "Timestamp": "210001400",
+                    "Blocknum": "700000250"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [1000],
+                "Timestamp": "31000000",
+                "Blocknum": "15000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1
+```

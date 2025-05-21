@@ -1,0 +1,102 @@
+ Here are 10 test case objects containing vulnerable transactions:
+
+```json
+[
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "10000000",
+                "Blocknum": "20000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "mintToken",
+                    "Params": [
+                        [
+                            "SmartianAgent4"
+                        ],
+                        ["11579208923731619542357098500868790785326998466591392"]
+                    ],
+                    "Timestamp": "10000112",
+                    "Blocknum": "20000150"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "sellPrice",
+                    "Params": [],
+                    "Timestamp": "10000115",
+                    "Blocknum": "20000152"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "100",
+                    "Function": "sell",
+                    "Params": [["5000000000000000000"]],
+                    "Timestamp": "10000118",
+                    "Blocknum": "20000160"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "freezeAccount",
+                    "Params": [
+                        [
+                            "SmartianAgent4"
+                        ],
+                        [
+                            true
+                        ]
+                    ],
+                    "Timestamp": "10000121",
+                    "Blocknum": "20000168"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "500",
+                    "Function": "mintToken",
+                    "Params": [
+                        [
+                            "SmartianAgent2"
+                        ],
+                        ["-100"]
+                    ],
+                    "Timestamp": "10000124",
+                    "Blocknum": "20000175"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "setMinBalance",
+                    "Params": [
+                        [-100]
+                    ],
+                    "Timestamp": "10000127",
+                    "Blocknum": "20000178"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "setPrices",
+                    "Params": [  ["100"], "/1", "0x1", "Invalid" ],
+                    "Timestamp": "10000132",
+                    "Blocknum": "20000201"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "owner",
+                    "Params": [
+                    ],
+                    "Timestamp": "10000137",
+                    "Blocknum": "20000183"
+                },
+                {
+                    "From
+```

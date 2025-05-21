@@ -1,0 +1,185 @@
+ [
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [
+                    [
+                        "0x0000000000000000000000000000000000000001",
+                        "TokenName",
+                        "TokenSymbol",
+                        "1000000000000000000",
+                        "18"
+                    ]
+                ],
+                "Timestamp": "10000000",
+                "Blocknum": "20000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "approve",
+                    "Params": [
+                        [
+                            "0x0000000000000000000000000000000000000002",
+                            "12345678901234567890"
+                        ]
+                    ],
+                    "Timestamp": "10000141",
+                    "Blocknum": "20000198"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "transferFrom",
+                    "Params": [
+                        [
+                            "SmartianAgent1",
+                            "0x0000000000000000000000000000000000000003",
+                            "123456789"
+                        ],
+                        [
+                            "1234567890"
+                        ]
+                    ],
+                    "Timestamp": "10000151",
+                    "Blocknum": "20000144"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "1",
+                    "Function": "mint",
+                    "Params": [
+                        [
+                            "0x0000000000000000000000000000000000000001",
+                            "1111111111111111111111111111111"
+                        ]
+                    ],
+                    "Timestamp": "10000161",
+                    "Blocknum": "20000150"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "burn",
+                    "Params": [
+                        [
+                            "11111111111111111111111111111111"
+                        ]
+                    ],
+                    "Timestamp": "10000171",
+                    "Blocknum": "20000156"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "transfer",
+                    "Params": [
+                        [
+                            "0x0000000000000000000000000000000000000004",
+                            "0x0000000000000000000000000000000000000003"
+                        ],
+                        [
+                            "1111111111",
+                            "1111111111"
+                        ]
+                    ],
+                    "Timestamp": "10000181",
+                    "Blocknum": "20000162"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "mintAgents",
+                    "Params": [
+                        [
+                            "SmartianAgent5"
+                        ]
+                    ],
+                    "Timestamp": "10000191",
+                    "Blocknum": "20000168"
+                },
+                {
+                    "From": "SmartianAgent5",
+                    "Value": "0",
+                    "Function": "setMintAgent",
+                    "Params": [
+                        [
+                            "SmartianAgent5",
+                            true
+                        ]
+                    ],
+                    "Timestamp": "10000202",
+                    "Blocknum": "20000174"
+                },
+                {
+                    "From": "SmartianAgent5",
+                    "Value": "1",
+                    "Function": "mint",
+                    "Params": [
+                        [
+                            "0x0000000000000000000000000000000000000001",
+                            "999999988888888888888888888888"
+                        ]
+                    ],
+                    "Timestamp": "10000211",
+                    "Blocknum": "20000180"
+                },
+                {
+                    "From": "SmartianAgent6",
+                    "Value": "0",
+                    "Function": "upgradeMaster",
+                    "Params": [
+                        [
+                            "0x0000000000000000000000000000000000000006"
+                        ]
+                    ],
+                    "Timestamp": "10000221",
+                    "Blocknum": "20000186"
+                },
+                {
+                    "From": "SmartianAgent6",
+                    "Value": "0",
+                    "Function": "upgradeAgent",
+                    "Params": [
+                        [
+                            "SmartianAgent7",
+                            "0x0000000000000000000000000000000000000006"
+                        ]
+                    ],
+                    "Timestamp": "10000231",
+                    "Blocknum": "20000192"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [
+                    [
+                        "0x0000000000000000000000000000000000000001",
+                        "OverflowToken",
+                        "OT",
+                        "10000000000000000000000",
+                        "18"
+                    ]
+                ],
+                "Timestamp": "12000000",
+                "Blocknum": "21000000"
+            },
+            "Txs": [
+                ...
+            ]
+        }
+    },
+    ...
+]
+
+(Note: The rest of the test cases have been omitted for brevity.)

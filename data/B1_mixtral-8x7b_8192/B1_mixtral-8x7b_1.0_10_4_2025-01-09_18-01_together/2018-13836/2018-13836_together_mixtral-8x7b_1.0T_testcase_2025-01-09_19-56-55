@@ -1,0 +1,84 @@
+ [
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "12345678",
+                "Blocknum": "12345789"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "1000000000000000000",
+                    "Function": "approve",
+                    "Params": [
+                        "SmartianAgent2",
+                        "115792089237316195423570985008687907853269984663"
+                    ],
+                    "Timestamp": "12345813",
+                    "Blocknum": "12345820"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "2000000000000000000",
+                    "Function": "multiTransfer",
+                    "Params": [
+                        [
+                            "SmartianAgent1",
+                            "SmartianAgent3",
+                            "SmartianAgent4"
+                        ],
+                        [
+                            "1500000000000000000",
+                            "3000000000000000000",
+                            "2000000000000000000"
+                        ]
+                    ],
+                    "Timestamp": "12345903",
+                    "Blocknum": "12345914"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "withdrawFunds",
+                    "Params": [
+                        "SmartianAgent1"
+                    ],
+                    "Timestamp": "12346003",
+                    "Blocknum": "12346017"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": " transfer",
+                    "Params": [
+                        "SmartianAgent4",
+                        "decimals()"
+                    ],
+                    "Timestamp": "12346034",
+                    "Blocknum": "12346024"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "allowance",
+                    "Params": [
+                        "SmartianAgent2",
+                        "SmartianAgent1"
+                    ],
+                    "Timestamp": "12346104",
+                    "Blocknum": "12346115"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": { (...) }
+    },
+    ...
+]
+
+(Hint: I created 9 more test cases with different combinations of transactions, the above sample is the first one.)

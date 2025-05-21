@@ -1,0 +1,306 @@
+```json
+[
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1678886400",
+        "Blocknum": "10000000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "balanceOf",
+          "Params": ["SmartianAgent2"],
+          "Timestamp": "1678886460",
+          "Blocknum": "10000001"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["SmartianAgent2", "100"],
+          "Timestamp": "1678886520",
+          "Blocknum": "10000002"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent1", "SmartianAgent3", "50"],
+          "Timestamp": "1678886580",
+          "Blocknum": "10000003"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent4", "25"],
+          "Timestamp": "1678886640",
+          "Blocknum": "10000004"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "approveAndCall",
+          "Params": ["SmartianAgent1", "10", "0x"],
+          "Timestamp": "1678886700",
+          "Blocknum": "10000005"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "allowance",
+          "Params": ["SmartianAgent4", "SmartianAgent1"],
+          "Timestamp": "1678886760",
+          "Blocknum": "10000006"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1678886800",
+        "Blocknum": "10000007"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "allocateTokens",
+          "Params": [["SmartianAgent2", "SmartianAgent3"], ["1000", "2000"]],
+          "Timestamp": "1678886860",
+          "Blocknum": "10000008"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent4", "500"],
+          "Timestamp": "1678886920",
+          "Blocknum": "10000009"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent3", "SmartianAgent1", "1000"],
+          "Timestamp": "1678886980",
+          "Blocknum": "10000010"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "approveProxy",
+          "Params": ["SmartianAgent2", "SmartianAgent4", "100", 1, "0x1234", "0x5678"],
+          "Timestamp": "1678887040",
+          "Blocknum": "10000011"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferProxy",
+          "Params": ["SmartianAgent3", "SmartianAgent4", "50", "10", 1, "0x1234", "0x5678"],
+          "Timestamp": "1678887100",
+          "Blocknum": "10000012"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "disableLock",
+          "Params": [true],
+          "Timestamp": "1678887160",
+          "Blocknum": "10000013"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "removeLock",
+          "Params": ["SmartianAgent2"],
+          "Timestamp": "1678887220",
+          "Blocknum": "10000014"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1678887280",
+        "Blocknum": "10000015"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "addLock",
+          "Params": ["SmartianAgent2"],
+          "Timestamp": "1678887340",
+          "Blocknum": "10000016"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent3", "100"],
+          "Timestamp": "1678887400",
+          "Blocknum": "10000017"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "changeOwner",
+          "Params": ["SmartianAgent3"],
+          "Timestamp": "1678887460",
+          "Blocknum": "10000018"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "enableTransfer",
+          "Params": [false],
+          "Timestamp": "1678887520",
+          "Blocknum": "10000019"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent1", "50"],
+          "Timestamp": "1678887580",
+          "Blocknum": "10000020"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "acceptOwnership",
+          "Params": [],
+          "Timestamp": "1678887640",
+          "Blocknum": "10000021"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "allocateEndTime",
+          "Params": [],
+          "Timestamp": "1678887700",
+          "Blocknum": "10000022"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "setExclude",
+          "Params": ["SmartianAgent4"],
+          "Timestamp": "1678887760",
+          "Blocknum": "10000023"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1678887820",
+        "Blocknum": "10000024"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "name",
+          "Params": [],
+          "Timestamp": "1678887880",
+          "Blocknum": "10000025"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "symbol",
+          "Params": [],
+          "Timestamp": "1678887940",
+          "Blocknum": "10000026"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "version",
+          "Params": [],
+          "Timestamp": "1678888000",
+          "Blocknum": "10000027"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "decimals",
+          "Params": [],
+          "Timestamp": "1678888060",
+          "Blocknum": "10000028"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "totalSupply",
+          "Params": [],
+          "Timestamp": "1678888120",
+          "Blocknum": "10000029"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "owner",
+          "Params": [],
+          "Timestamp": "1678888180",
+          "Blocknum": "10000030"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferEnabled",
+          "Params": [],
+          "Timestamp": "1678888240",
+          "Blocknum": "10000031"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "getNonce",
+          "Params": ["SmartianAgent2"],
+          "Timestamp": "1678888300",
+          "Blocknum": "10000032"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1678888360",
+        "Blocknum": "10000033"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "approveAndCallcode",
+          "Params": ["SmartianAgent2", "100", "0x606060405234801561001057600080fd5b506004361061003b5760003560e01c80636057361d146100405780636d4ce63c1461006b575b600080fd5b61004861004e565b604051610055919061010a565b60405180910390f35b61007e610079565b60405161008b919061010a565b60405180910390f35b606060008190505b90565b60005481565b600080fd5b60008190505b90565b6100a8816100b2565b8060001916806000171614156100c257600080fd5b50565b60005481565b600080fd5b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b60008190505b90565b6

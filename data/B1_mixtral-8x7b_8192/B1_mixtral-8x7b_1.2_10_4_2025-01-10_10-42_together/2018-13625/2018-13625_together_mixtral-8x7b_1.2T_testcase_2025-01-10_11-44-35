@@ -1,0 +1,71 @@
+ [
+	{
+		"TestCase": {
+			"DeployTx": {
+				"From": "SmartianAgent1",
+				"Value": "0",
+				"Function": "constructor",
+				"Params": [],
+				"Timestamp": "10000000",
+				"Blocknum": "20000000"
+			},
+			"Txs": [
+				{
+					"From": "SmartianAgent1",
+					"Value": "0",
+					"Function": "approve",
+					"Params": [
+						"0x9DD66b0244AE0A9FA75A095DaD6999742DaD2AE1",
+						"115792089237316195423570985008687907853269984665640564039457584007913129639935"
+					],
+					"Timestamp": "10000141",
+					"Blocknum": "20000198"
+				},
+				{
+					"From": "SmartianAgent2",
+					"Value": "0",
+					"Function": "approveAndCall",
+					"Params": [
+						"SmartianAgent1",
+						"1",
+						[
+							"0x605786"
+						]
+					],
+					"Timestamp": "10000241",
+					"Blocknum": "20000218"
+				},
+				{
+					"From": "SmartianAgent1",
+					"Value": "0",
+					"Function": "freezelvlAccount",
+					"Params": [
+						"0x1BLe732C499f41173837c57d9bA052fb02A3FEB6",
+						true
+					],
+					"Timestamp": "10000341",
+					"Blocknum": "20000398"
+				},
+				{
+					"From": "SmartianAgent3",
+					"Value": "0",
+					"Function": "transferFrom",
+					"Params": [
+						"SmartianAgent1",
+						"0x1BLe732C499f41173837c57d9bA052fb02A3FEB6",
+						"42"
+					],
+					"Timestamp": "10000441",
+					"Blocknum": "20000498"
+				},
+				{
+					"From": "SmartianAgent4",
+					"Value": "0",
+					"Function": "allowance",
+					"Params": [
+						"0x1BLe732C499f41173837c57d9bA052fb02A3FEB6",
+						"SmartianAgent3"
+					],
+					"Timestamp": "10000541",
+					"
+```

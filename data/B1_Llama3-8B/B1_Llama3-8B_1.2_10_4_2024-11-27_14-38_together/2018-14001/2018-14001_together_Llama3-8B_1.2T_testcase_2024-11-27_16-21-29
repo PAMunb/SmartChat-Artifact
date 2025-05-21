@@ -1,0 +1,203 @@
+[
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "10000000",
+                "Blocknum": "20000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "name",
+                    "Params": [],
+                    "Timestamp": "10000100",
+                    "Blocknum": "20000112"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "approve",
+                    "Params": [
+                        "SmartianAgent3",
+                        "0x10000000000000000"
+                    ],
+                    "Timestamp": "10000120",
+                    "Blocknum": "20000125"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "allowance",
+                    "Params": [
+                        "SmartianAgent2"
+                    ],
+                    "Timestamp": "10000135",
+                    "Blocknum": "20000138"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "airDrop",
+                    "Params": [
+                        [
+                            "SmartianAgent2",
+                            "SmartianAgent3"
+                        ]
+                    ],
+                    "Timestamp": "10000150",
+                    "Blocknum": "20000158"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "3",
+                    "Function": "transferFrom",
+                    "Params": [
+                        "SmartianAgent1",
+                        "SmartianAgent2",
+                        "0x10000000000000003"
+                    ],
+                    "Timestamp": "10000168",
+                    "Blocknum": "20000166"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent2",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "20000000",
+                "Blocknum": "0"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "totalSupply",
+                    "Params": [],
+                    "Timestamp": "20000001",
+                    "Blocknum": "1"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "decimals",
+                    "Params": [],
+                    "Timestamp": "20000011",
+                    "Blocknum": "5"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "balanceOf",
+                    "Params": [
+                        "SmartianAgent3"
+                    ],
+                    "Timestamp": "20000021",
+                    "Blocknum": "10"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "batchTransfer",
+                    "Params": [
+                        [
+                            "SmartianAgent2",
+                            "SmartianAgent3"
+                        ]
+                    ],
+                    "Timestamp": "20000031",
+                    "Blocknum": "15"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "symbol",
+                    "Params": [],
+                    "Timestamp": "20000041",
+                    "Blocknum": "20"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent4",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "0",
+                "Blocknum": "0"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "Buy",
+                    "Params": [],
+                    "Timestamp": "0",
+                    "Blocknum": "0"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "Sell",
+                    "Params": [],
+                    "Timestamp": "10",
+                    "Blocknum": "5"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "3",
+                    "Function": "cashOut",
+                    "Params": [
+                        "0x10000000000000003"
+                    ],
+                    "Timestamp": "20",
+                    "Blocknum": "10"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "Trade",
+                    "Params": [
+                        "0x0000000000000000000000000000000000000001",
+                        "0x0000000000000000000000000000000000000002",
+                        "0x8080808080808080808080808080808080808080"
+                    ],
+                    "Timestamp": "30",
+                    "Blocknum": "15"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "changePrice",
+                    "Params": [
+                        "0x10000000000000001"
+                    ],
+                    "Timestamp": "40",
+                    "Blocknum": "20"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "manager",
+                    "Params": [
+                        "0x0000000000000000000000000000000000000001"
+                    ],
+                    "Timestamp": "50",
+                    "Blocknum": "25"
+                }
+            ]
+        }
+    },
+    // up to 7 more test case objects

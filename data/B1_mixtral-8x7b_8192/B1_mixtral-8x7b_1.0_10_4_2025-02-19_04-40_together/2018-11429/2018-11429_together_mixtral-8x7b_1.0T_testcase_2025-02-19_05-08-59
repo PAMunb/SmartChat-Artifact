@@ -1,0 +1,136 @@
+ [
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1615580539",
+        "Blocknum": "22548874"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "name",
+          "Timestamp": "1615580549",
+          "Blocknum": "22548875"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "symbol",
+          "Timestamp": "1615580559",
+          "Blocknum": "22548876"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "totalSupply",
+          "Timestamp": "1615580569",
+          "Blocknum": "22548877"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "decimals",
+          "Timestamp": "1615580579",
+          "Blocknum": "22548878"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "allowance",
+          "Params": [
+            [
+              "SmartianAgent2",
+              "SmartianAgent3"
+            ]
+          ],
+          "Timestamp": "1615580589",
+          "Blocknum": "22548879"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "approve",
+          "Params": [
+            [
+              "SmartianAgent1"
+            ],
+            [
+              "SmartianAgent2.balanceOf(SmartianAgent1)"
+            ]
+          ],
+          "Timestamp": "1615580594",
+          "Blocknum": "22548880"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": [
+            [
+              "SmartianAgent1",
+              "SmartianAgent2"
+            ],
+            [
+              "1"
+            ]
+          ],
+          "Timestamp": "1615580599",
+          "Blocknum": "22548881"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": [
+            [
+              "SmartianAgent3,SmartianAgent4"
+            ],
+            [
+              "SmartianAgent1.totalSupply()"
+            ]
+          ],
+          "Timestamp": "1615580604",
+          "Blocknum": "22548882"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": [
+            [
+              "SmartianAgent1",
+              "SmartianAgent4"
+            ],
+            [
+              "SmartianAgent2.allowance(SmartianAgent1,SmartianAgent2)"
+            ]
+          ],
+          "Timestamp": "1615580609",
+          "Blocknum": "22548883"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "mint",
+          "Params": [
+            [
+              "SmartianAgent2"
+            ],
+            [
+              "SmartianAgent4.balanceOf(SmartianAgent4) + 1000"
+            ]
+          ],
+          "Timestamp": "1615580614",
+          "Blocknum": "22548884"
+        }
+      ]
+    }
+  }
+]
+
+Please note that this payload is an example, use real values, check function modifiers, and consider other factors based on the SWC and DASP vulnerabilities while creating test cases to ensure uncovering potential bugs in the contract.

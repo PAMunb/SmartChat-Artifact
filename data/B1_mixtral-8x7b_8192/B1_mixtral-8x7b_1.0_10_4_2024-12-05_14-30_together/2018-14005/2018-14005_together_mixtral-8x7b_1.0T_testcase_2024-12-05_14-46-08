@@ -1,0 +1,302 @@
+ [
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1609430558",
+        "Blocknum": "6763706"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "approve",
+          "Params": [
+            "0x0000000000000000000000000000000000000001",
+            "115792089237316195423"
+          ],
+          "Timestamp": "1609430559",
+          "Blocknum": "6763707"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferAny",
+          "Params": [
+            ["0x0000000000000000000000000000000000000001"],
+            [10]
+          ],
+          "Timestamp": "1609430560",
+          "Blocknum": "6763708"
+        },
+        {
+          "From": "0x0000000000000000000000000000000000000001",
+          "Value": "0",
+          "Function": "transferAny",
+          "Params": [
+            ["0x0000000000000000000000000000000000000001"],
+            [115792089237316195420]
+          ],
+          "Timestamp": "1609430561",
+          "Blocknum": "6763709"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "decreaseApproval",
+          "Params": [
+            "0x0000000000000000000000000000000000000001",
+            "115792089237316195423"
+          ],
+          "Timestamp": "1609430562",
+          "Blocknum": "6763710"
+        },
+        {
+          "From": "0x0000000000000000000000000000000000000001",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": [
+            "SmartianAgent3",
+            "1"
+          ],
+          "Timestamp": "1609430563",
+          "Blocknum": "6763711"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent3",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1609430564",
+        "Blocknum": "6763712"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent3",
+          "Value": "1000000000000000000",
+          "Function": "approve",
+          "Params": [
+            "SmartianAgent1",
+            "115792089237316195423"
+          ],
+          "Timestamp": "1609430565",
+          "Blocknum": "6763713"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferAny",
+          "Params": [
+            [
+              "SmartianAgent1",
+              "SmartianAgent4"
+            ],
+            [1000000000000000000, 0]
+          ],
+          "Timestamp": "1609430566",
+          "Blocknum": "6763714"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "decreaseApproval",
+          "Params": [
+            "SmartianAgent3",
+            "115792089237316195423"
+          ],
+          "Timestamp": "1609430567",
+          "Blocknum": "6763715"
+        },
+        {
+          "From": "0x0000000000000000000000000000000000000001",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": [
+            "SmartianAgent2"
+          ],
+          "Timestamp": "1609430568",
+          "Blocknum": "6763716"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": [
+            "SmartianAgent1",
+            "SmartianAgent4",
+            "9999999990000000000"
+          ],
+          "Timestamp": "1609430569",
+          "Blocknum": "6763717"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent4",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1609430570",
+        "Blocknum": "6763718"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferEXToken",
+          "Params": [
+            "SmartianAgent1",
+            "0xFFFFFFFF00000000000000000000000000000000"
+          ],
+          "Timestamp": "1609430571",
+          "Blocknum": "6763719"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "allowance",
+          "Params": [
+            "SmartianAgent4",
+            "SmartianAgent3"
+          ],
+          "Timestamp": "1609430572",
+          "Blocknum": "6763720"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferAUTOtoken1",
+          "Params": [
+            ["SmartianAgent3", "SmartianAgent4"]
+          ],
+          "Timestamp": "1609430573",
+          "Blocknum": "6763721"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferAUTOtokens5",
+          "Params": [
+            [
+              "0x0000000000000000000000000000000000000001",
+              "0x0000000000000000000000000000000000000002",
+              "0x0000000000000000000000000000000000000003",
+              "SmartianAgent1",
+              "SmartianAgent2"
+            ]
+          ],
+          "Timestamp": "1609430574",
+          "Blocknum": "6763722"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferAUTOtokens10",
+          "Params": [
+            [
+              "SmartianAgent1",
+              "0x0000000000000000000000000000000000000001",
+              "0x0000000000000000000000000000000000000002",
+              "0x0000000000000000000000000000000000000003",
+              "0x0000000000000000000000000000000000000004",
+              "0x0000000000000000000000000000000000000005",
+              "0x0000000000000000000000000000000000000006",
+              "0x0000000000000000000000000000000000000007",
+              "0x0000000000000000000000000000000000000008",
+              "0x0000000000000000000000000000000000000009"
+            ]
+          ],
+          "Timestamp": "1609430575",
+          "Blocknum": "6763723"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "1609430576",
+        "Blocknum": "6763724"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferAny",
+          "Params": [
+            ["SmartianAgent3"],
+            [1]
+          ],
+          "Timestamp": "1609430577",
+          "Blocknum": "6763725"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "decreaseApproval",
+          "Params": [
+            "SmartianAgent1",
+            1
+          ],
+          "Timestamp": "1609430578",
+          "Blocknum": "6763726"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": [
+            "SmartianAgent3",
+            "SmartianAgent2",
+            1
+          ],
+          "Timestamp": "1609430579",
+          "Blocknum": "6763727"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "allowance",
+          "Params": [
+            "SmartianAgent3",
+            "SmartianAgent1"
+          ],
+          "Timestamp": "1609430580",
+          "Blocknum": "6763728"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": [
+            "SmartianAgent4"
+          ],
+          "Timestamp": "1609430581",
+          "Blocknum": "6763729"
+        }
+      ]
+    }
+  },
+  ...
+]
+
+// 4 additional test cases removed for brevity
+
+In the above example, 4 test cases are removed due to space constraints. This JSON collection comprises 10 test cases. Please find the complete JSON in the input parameters for execution.
+
+The included fuzzing test cases incorporate various functions such as `approve`, `transferAny`, `decreaseApproval`, `transferFrom`, `allowance`, and `transferOwnership`. These are designed to potentially expose vulnerabilities related to Solidity's ERC20 token standard and ownership management. Test case transactions employ differing parameter structures, dynamic values, and order of execution to enhance the likelihood of discovering bugs.

@@ -1,0 +1,144 @@
+ [
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [
+          ["SmartianAgent1"],
+          ["NonExistentToken", "Token", "1000000", "10" ],
+          "OnlyPayableWhenUpgrading",
+          [18]
+        ],
+        "Timestamp": "10000000",
+        "Blocknum": "20000000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "approve",
+          "Params": [
+            ["0x0000000000000000000000000000000000000002"],
+            ["1157920000000000000000"]
+          ],
+          "Timestamp": "10000101",
+          "Blocknum": "20000085"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": [
+            ["SmartianAgent3", "0x0000000000000000000000000000000000000002"],
+            ["SmartianAgent1"],
+            ["1157920000000000000000"]
+          ],
+          "Timestamp": "10000121",
+          "Blocknum": "20000110"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "mint",
+          "Params": [
+            ["0x0000000000000000000000000000000000000003"],
+            ["1157920000000000000001"]
+          ],
+          "Timestamp": "10000125",
+          "Blocknum": "20000112"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "burn",
+          "Params": ["1157920000000000000001"],
+          "Timestamp": "10000155",
+          "Blocknum": "20000136"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "mintAgents",
+          "Params": ["0x0000000000000000000000000000000000000004"],
+          "Timestamp": "10000158",
+          "Blocknum": "20000138"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "setMintAgent",
+          "Params": [
+            ["SmartianAgent4"],
+            [true]
+          ],
+          "Timestamp": "10000165",
+          "Blocknum": "20000141"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "1",
+          "Function": "transfer",
+          "Params": [
+            [
+              "0x0000000000000000000000000000000000000001"
+            ],
+            ["1"]
+          ],
+          "Timestamp": "10000195",
+          "Blocknum": "20000166"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "upgradeAgent",
+          "Params": [],
+          "Timestamp": "10000200",
+          "Blocknum": "20000167"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "deleteUpgrades",
+          "Params": [],
+          "Timestamp": "10000235",
+          "Blocknum": "20000194"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "setUpgradeMaster",
+          "Params": [
+            "0x0000000000000000000000000000000000000005"
+          ],
+          "Timestamp": "10000300",
+          "Blocknum": "20000224"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [
+          ["SmartianAgent0"],
+          ["ReentranceAttackToken", "RToken", "2100000", "18" ],
+          "OnlyPayableWhenUpgrading",
+          [18]
+        ],
+        "Timestamp": "11000000",
+        "Blocknum": "30000000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent0",
+          "Value": "0",
+          "Function": "approve",
+          "Params": [
+            ["0x0000000000000000000000000000000000000001"],
+            ["1157920000000000000"
+```

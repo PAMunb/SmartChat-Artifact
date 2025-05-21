@@ -1,0 +1,142 @@
+ [
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "11111111",
+                "Blocknum": "22222222"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "1000000000000000000",
+                    "Function": "approve",
+                    "Params": [
+                        "0x0000000000000000000000000000000000000001",
+                        "1157920892373161954"
+                    ],
+                    "Timestamp": "11111222",
+                    "Blocknum": "22222233"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "transferFrom",
+                    "Params": [
+                        "SmartianAgent1",
+                        "0x0000000000000000000000000000000000000001",
+                        "1"
+                    ],
+                    "Timestamp": "11111233",
+                    "Blocknum": "22222234"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "approveAndCall",
+                    "Params": [
+                        "0x0000000000000000000000000000000000000002",
+                        "10000000000000000000",
+                        []
+                    ],
+                    "Timestamp": "11111244",
+                    "Blocknum": "22222235"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "transfer",
+                    "Params": [
+                        "0x0000000000000000000000000000000000000003",
+                        "500000000000000000"
+                    ],
+                    "Timestamp": "11111255",
+                    "Blocknum": "22222236"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "burnTokens",
+                    "Params": [
+                        "500000000000000000"
+                    ],
+                    "Timestamp": "11111266",
+                    "Blocknum": "22222237"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent4",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "33333333",
+                "Blocknum": "44444444"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "mintTokens",
+                    "Params": [
+                        "SmartianAgent2",
+                        "1157920892373161954"
+                    ],
+                    "Timestamp": "33333444",
+                    "Blocknum": "44444455"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "transferOwnership",
+                    "Params": [
+                        "SmartianAgent3"
+                    ],
+                    "Timestamp": "33333455",
+                    "Blocknum": "44444456"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "transfer",
+                    "Params": [
+                        "SmartianAgent4",
+                        "500000000000000000"
+                    ],
+                    "Timestamp": "33333466",
+                    "Blocknum": "44444457"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "500000000000000000",
+                    "Function": "approve",
+                    "Params": [
+                        "0x0000000000000000000000000000000000000004",
+                        "1"
+                    ],
+                    "Timestamp": "33333477",
+                    "Blocknum": "44444458"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "transferFrom",
+                    "Params": [
+                        "SmartianAgent1",
+                        "0x0000000000000000000000000000000000000004",
+                        "1"
+                    ],
+                    "Timestamp": "33333488",
+                    "Blocknum": "44444459"
+                }
+            ]
+        }
+    }
+]
+These test cases cover the following SWC: 1 (Storage Layout) - {mint, transfer}, 3 (Sender), 6 (Front Running), 11 (DoS with block gas limit), 12 (Native Libraries), 13 (Constructor), 14 (Fallback), 23 (Reentrancy).

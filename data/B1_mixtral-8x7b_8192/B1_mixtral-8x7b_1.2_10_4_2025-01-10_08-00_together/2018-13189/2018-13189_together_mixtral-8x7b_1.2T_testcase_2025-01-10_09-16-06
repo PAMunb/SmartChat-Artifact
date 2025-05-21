@@ -1,0 +1,172 @@
+ [
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "10000000",
+                "Blocknum": "20000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "pause",
+                    "Timestmap": "12000000",
+                    "Blocknum": "20010000"
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "transferFrom",
+                    "Params": [
+                        [
+                            "SmartianAgent1",
+                            "SmartianAgent3"
+                        ],
+                        [
+                            "123456",
+                            "0"
+                        ]
+                    ],
+                    "Timestamp": "12000041",
+                    "Blocknum": "20010010"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "transfer",
+                    "Params": [
+                        [
+                            "SmartianAgent4"
+                        ],
+                        [
+                            "11579208923731619542357098500868790785326998466564056403945708550096"
+                        ]
+                    ],
+                    "Timestamp": "12000060",
+                    "Blocknum": "20010027"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "totalSupply",
+                    "Timestamp": "12000099",
+                    "Blocknum": "20010055"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "unpause",
+                    "Timestmap": "13000000",
+                    "Blocknum": "20020000"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "mint",
+                    "Params": [
+                        [
+                            "SmartianAgent4"
+                        ],
+                        [
+                            2100000001
+                        ]
+                    ],
+                    "Timestamp": "13100000",
+                    "Blocknum": "20025000"
+                }
+            ]
+        }
+    },
+    {
+        "TestCase": {
+            "DeployTx": {
+                "From": "SmartianAgent1",
+                "Value": "0",
+                "Function": "constructor",
+                "Params": [],
+                "Timestamp": "25000000",
+                "Blocknum": "35000000"
+            },
+            "Txs": [
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "approve",
+                    "Params": [
+                        [
+                            "SmartianAgent3"
+                        ],
+                        [
+                            "12345"
+                        ]
+                    ],
+                    "Timestmap": "26000000",
+                    "Blocknum": "35010000"
+                },
+                {
+                    "From": "SmartianAgent3",
+                    "Value": "0",
+                    "Function": "transferFrom",
+                    "Params": [
+                        [
+                            "SmartianAgent2",
+                            "SmartianAgent1"
+                        ],
+                        [
+                            "323456",
+                            "9"
+                        ]
+                    ],
+                    "Timestamp": "26000100",
+                    "Blocknum": "35015400”
+                },
+                {
+                    "From": "SmartianAgent2",
+                    "Value": "0",
+                    "Function": "allowance",
+                    "Params": [
+                        [
+                            "SmartianAgent1",
+                            "SmartianAgent4"
+                        ]
+                    ],
+                    "Timestamp": "26000200",
+                    "Blocknum": "35020100"
+                },
+                {
+                    "From": "SmartianAgent4",
+                    "Value": "0",
+                    "Function": "balanceOf",
+                    "Params": [
+                        [
+                            "SmartianAgent3"
+                        ]
+                    ],
+                    "Timestamp": "26000300",
+                    "Blocknum": "35025000"
+                },
+                {
+                    "From": "SmartianAgent1",
+                    "Value": "0",
+                    "Function": "mint",
+                    "Params": [
+                        [
+                            "0x0000000000000000000000000000000000000034"
+                        ],
+                        [
+                            "99000000088"
+                        ]
+                    ],
+                    "Timestamp": "26000700",
+                    "Blocknum": "35030000"
+                }
+            ]
+        }
+    }
+]
+
+This JSON is RFC8259 compliant, which provides a strict format for integrating with web services.

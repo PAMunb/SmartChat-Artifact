@@ -1,0 +1,181 @@
+ [
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [
+          "5000",
+          "TestToken",
+          "18",
+          "TT",
+          "0x0000000000000000000000000000000000000000"
+        ],
+        "Timestamp": "1595062820",
+        "Blocknum": "7894200"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "approve",
+          "Params": [
+            "SmartianAgent2",
+            "ApprovalLimit"
+          ],
+          "Timestamp": "1595062821",
+          "Blocknum": "7894201"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": [
+            "SmartianAgent1",
+            "SmartianAgent4",
+            "ApprovalLimit"
+          ],
+          "Timestamp": "1595062822",
+          "Blocknum": "7894202"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "freezeOf",
+          "Params": [
+            1,
+            1
+          ],
+          "Timestamp": "1595062823",
+          "Blocknum": "7894203"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "unFreeze",
+          "Params": [
+            1
+          ],
+          "Timestamp": "1595062824",
+          "Blocknum": "7894204"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "changeOwner",
+          "Params": [
+            "SmartianAgent3"
+          ],
+          "Timestamp": "1595062825",
+          "Blocknum": "7894205"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "freeze",
+          "Params": [
+            "SmartianAgent3",
+            10,
+            2
+          ],
+          "Timestamp": "1595062826",
+          "Blocknum": "7894206"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferMulti",
+          "Params": [
+            [
+              "SmartianAgent1",
+              "SmartianAgent2",
+              "SmartianAgent4"
+            ],
+            [
+              "Amount",
+              "Amount",
+              "Amount"
+            ]
+          ],
+          "Timestamp": "1595062826",
+          "Blocknum": "7894207"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "Transfer": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "transfer",
+        "Params": [
+          "SmartianAgent2",
+          largeValue
+        ],
+        "Timestamp": "1595062827",
+        "Blocknum": "7894208"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "approveAndCall",
+          "Params": [
+            "SmartianAgent1",
+            lowValue,
+            "someBytecode"
+          ],
+          "Timestamp": "1595062828",
+          "Blocknum": "7894209"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": [
+            "SmartianAgent2",
+            "SmartianAgent3",
+            1
+          ],
+          "Timestamp": "1595062829",
+          "Blocknum": "7894210"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "changeTokensPerEther",
+          "Params": [
+            zeroValue
+          ],
+          "Timestamp": "1595062830",
+          "Blocknum": "7894211"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "generateTokens",
+          "Params": [
+            "0x0000000000000000000000000000000000000001",
+            largeValue
+          ],
+          "Timestamp": "1595062831",
+          "Blocknum": "7894212"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "changeController",
+          "Params": [
+            "0x0000000000000000000000000000000000000001"
+          ],
+          "Timestamp": "1595062832",
+          "Blocknum": "7894213"
+        }
+      ]
+    }
+  }
+]
+
+Replace largeValue, lowValue, and zeroValue with actual numbers to meet your needs.

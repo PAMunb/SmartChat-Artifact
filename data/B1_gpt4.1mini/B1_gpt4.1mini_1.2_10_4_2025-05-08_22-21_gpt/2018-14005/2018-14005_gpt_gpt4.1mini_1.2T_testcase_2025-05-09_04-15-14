@@ -1,0 +1,536 @@
+```json
+[
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "11000000",
+        "Blocknum": "21000000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["SmartianAgent2", "1000"],
+          "Timestamp": "11000010",
+          "Blocknum": "21000010"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent1", "SmartianAgent3", "1000"],
+          "Timestamp": "11000020",
+          "Blocknum": "21000020"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "decreaseApproval",
+          "Params": ["SmartianAgent2", "500"],
+          "Timestamp": "11000030",
+          "Blocknum": "21000030"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent1", "SmartianAgent4", "600"],
+          "Timestamp": "11000040",
+          "Blocknum": "21000040"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "balanceOf",
+          "Params": ["SmartianAgent4"],
+          "Timestamp": "11000050",
+          "Blocknum": "21000050"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent2",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "12010000",
+        "Blocknum": "22010000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent3", "2000"],
+          "Timestamp": "12010010",
+          "Blocknum": "22010010"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": ["SmartianAgent4"],
+          "Timestamp": "12010020",
+          "Blocknum": "22010020"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": ["SmartianAgent4"],
+          "Timestamp": "12010030",
+          "Blocknum": "22010030"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "increaseApproval",
+          "Params": ["SmartianAgent3", "1500"],
+          "Timestamp": "12010040",
+          "Blocknum": "22010040"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "allowance",
+          "Params": ["SmartianAgent4", "SmartianAgent3"],
+          "Timestamp": "12010050",
+          "Blocknum": "22010050"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent3",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "13020000",
+        "Blocknum": "23020000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["SmartianAgent1", "5000"],
+          "Timestamp": "13020010",
+          "Blocknum": "23020010"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent3", "SmartianAgent2", "3000"],
+          "Timestamp": "13020020",
+          "Blocknum": "23020020"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "burned",
+          "Timestamp": "13020030",
+          "Blocknum": "23020030"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferAny",
+          "Params": [["SmartianAgent2", "SmartianAgent4"], "100"],
+          "Timestamp": "13020040",
+          "Blocknum": "23020040"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "balanceOf",
+          "Params": ["SmartianAgent4"],
+          "Timestamp": "13020050",
+          "Blocknum": "23020050"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent4",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "14030000",
+        "Blocknum": "24030000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferAUTOtokens5",
+          "Params": [["SmartianAgent1", "SmartianAgent2", "SmartianAgent3"]],
+          "Timestamp": "14030010",
+          "Blocknum": "24030010"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferAUTOtokens10",
+          "Params": [["SmartianAgent1", "SmartianAgent2", "SmartianAgent3", "SmartianAgent4"]],
+          "Timestamp": "14030020",
+          "Blocknum": "24030020"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferAUTOtoken1",
+          "Params": [["SmartianAgent3"]],
+          "Timestamp": "14030030",
+          "Blocknum": "24030030"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "symbol",
+          "Timestamp": "14030040",
+          "Blocknum": "24030040"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "initialSupply",
+          "Timestamp": "14030050",
+          "Blocknum": "24030050"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "15040000",
+        "Blocknum": "25040000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent2", "0"],
+          "Timestamp": "15040010",
+          "Blocknum": "25040010"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent3", "999999999999999999"],
+          "Timestamp": "15040020",
+          "Blocknum": "25040020"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["SmartianAgent3", "115792089237316195423570985008687907853269984665640564039457584007913129639935"],
+          "Timestamp": "15040030",
+          "Blocknum": "25040030"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "increaseApproval",
+          "Params": ["SmartianAgent1", "10000000000000000000"],
+          "Timestamp": "15040040",
+          "Blocknum": "25040040"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "allowance",
+          "Params": ["SmartianAgent1", "SmartianAgent3"],
+          "Timestamp": "15040050",
+          "Blocknum": "25040050"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent3",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "16050000",
+        "Blocknum": "26050000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "decreaseApproval",
+          "Params": ["SmartianAgent3", "9000"],
+          "Timestamp": "16050010",
+          "Blocknum": "26050010"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": ["SmartianAgent2"],
+          "Timestamp": "16050020",
+          "Blocknum": "26050020"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": ["SmartianAgent1"],
+          "Timestamp": "16050030",
+          "Blocknum": "26050030"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "owner",
+          "Timestamp": "16050040",
+          "Blocknum": "26050040"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "price",
+          "Timestamp": "16050050",
+          "Blocknum": "26050050"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent2",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "17060000",
+        "Blocknum": "27060000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "balanceOf",
+          "Params": ["SmartianAgent2"],
+          "Timestamp": "17060010",
+          "Blocknum": "27060010"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent4", "5000"],
+          "Timestamp": "17060020",
+          "Blocknum": "27060020"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent3", "3000"],
+          "Timestamp": "17060030",
+          "Blocknum": "27060030"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent4", "SmartianAgent2", "1000"],
+          "Timestamp": "17060040",
+          "Blocknum": "27060040"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "allowance",
+          "Params": ["SmartianAgent4", "SmartianAgent3"],
+          "Timestamp": "17060050",
+          "Blocknum": "27060050"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent4",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "18070000",
+        "Blocknum": "28070000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferAny",
+          "Params": [["SmartianAgent1", "SmartianAgent3"], "1"],
+          "Timestamp": "18070010",
+          "Blocknum": "28070010"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transfer",
+          "Params": ["SmartianAgent4", "10"],
+          "Timestamp": "18070020",
+          "Blocknum": "28070020"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "burned",
+          "Timestamp": "18070030",
+          "Blocknum": "28070030"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "decimals",
+          "Timestamp": "18070040",
+          "Blocknum": "28070040"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "totalSupply",
+          "Timestamp": "18070050",
+          "Blocknum": "28070050"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent1",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "19080000",
+        "Blocknum": "29080000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": ["SmartianAgent4"],
+          "Timestamp": "19080010",
+          "Blocknum": "29080010"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferOwnership",
+          "Params": ["SmartianAgent1"],
+          "Timestamp": "19080020",
+          "Blocknum": "29080020"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "increaseApproval",
+          "Params": ["SmartianAgent2", "10000"],
+          "Timestamp": "19080030",
+          "Blocknum": "29080030"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["SmartianAgent3", "999999999"],
+          "Timestamp": "19080040",
+          "Blocknum": "29080040"
+        },
+        {
+          "From": "SmartianAgent3",
+          "Value": "0",
+          "Function": "allowance",
+          "Params": ["SmartianAgent1", "SmartianAgent2"],
+          "Timestamp": "19080050",
+          "Blocknum": "29080050"
+        }
+      ]
+    }
+  },
+  {
+    "TestCase": {
+      "DeployTx": {
+        "From": "SmartianAgent2",
+        "Value": "0",
+        "Function": "constructor",
+        "Params": [],
+        "Timestamp": "20090000",
+        "Blocknum": "30090000"
+      },
+      "Txs": [
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "approve",
+          "Params": ["SmartianAgent4", "0"],
+          "Timestamp": "20090010",
+          "Blocknum": "30090010"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferFrom",
+          "Params": ["SmartianAgent2", "SmartianAgent1", "1"],
+          "Timestamp": "20090020",
+          "Blocknum": "30090020"
+        },
+        {
+          "From": "SmartianAgent1",
+          "Value": "0",
+          "Function": "balanceOf",
+          "Params": ["SmartianAgent1"],
+          "Timestamp": "20090030",
+          "Blocknum": "30090030"
+        },
+        {
+          "From": "SmartianAgent4",
+          "Value": "0",
+          "Function": "transferAUTOtoken1",
+          "Params": [["SmartianAgent2"]],
+          "Timestamp": "20090040",
+          "Blocknum": "30090040"
+        },
+        {
+          "From": "SmartianAgent2",
+          "Value": "0",
+          "Function": "transferAUTOtokens5",
+          "Params": [["SmartianAgent1", "SmartianAgent3", "SmartianAgent4"]],
+          "Timestamp": "20090050",
+          "Blocknum": "30090050"
+        }
+      ]
+    }
+  }
+]
+```
