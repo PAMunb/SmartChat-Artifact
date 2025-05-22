@@ -12,7 +12,6 @@ B1_BUG_INFO_FILE = os.path.join(BENCHMARK_DIR, "assets", "B1-bug.csv")
 B1_INST_INFO_FILE = os.path.join(BENCHMARK_DIR, "assets", "B1-ins.csv")
 B2_INST_INFO_FILE = os.path.join(BENCHMARK_DIR, "assets", "B2-ins.csv")
 B2_BUG_INFO_FILE = os.path.join(BENCHMARK_DIR, "assets", "B2-bug.csv")
-B2_NEW_BUG_INFO_FILE = os.path.join(BENCHMARK_DIR, "assets", "B2-bug_new.csv")
 
 
 FUZZ_LOG_NAME = "log.txt"
@@ -81,26 +80,9 @@ def has_bug(s):
         print("Invalid bug str: %s" % s)
         assert(False)
 
-def init_b2_bug_info(BD_sig, ME_sig, RE_sig):
+def init_b2_bug_info(BD_sig, ME_sig, RE_sig, IB_sig, EL_sig):
     bug_info = { }
     bug_csv_file = open(B2_BUG_INFO_FILE, "r")
-    for buf in bug_csv_file:
-        tokens = buf.strip().split(",")
-        if len(tokens) != 4:
-            print("Invalid entry in CSV file: %s" % buf)
-            exit(1)
-        targ = tokens[0]
-        bug_list = []
-        bug_list.append((BD_sig, has_bug(tokens[1])))
-        bug_list.append((ME_sig, has_bug(tokens[2])))
-        bug_list.append((RE_sig, has_bug(tokens[3])))
-        bug_info[targ] = bug_list
-    bug_csv_file.close()
-    return bug_info
-
-def init_b2_new_bug_info(BD_sig, ME_sig, RE_sig, IB_sig, EL_sig):
-    bug_info = { }
-    bug_csv_file = open(B2_NEW_BUG_INFO_FILE, "r")
     for buf in bug_csv_file:
         tokens = buf.strip().split(",")
         if len(tokens) != 6:
