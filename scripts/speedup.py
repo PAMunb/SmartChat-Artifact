@@ -2,6 +2,7 @@ import re
 import os
 import numpy as np
 from typing import Dict, List, Tuple, Set
+import scipy.stats as stats
 
 def extract_times(line: str) -> List[int]:
     """Extract the execution times from a line of output."""
@@ -106,16 +107,81 @@ def calculate_average_times(results: Dict[str, Dict[str, List[int]]]) -> Dict[st
         for contract, times in contracts.items():
             if times:  # If we have times (not a "Never found" case)
                 avg_times[vuln_type][contract] = sum(times) / len(times)
-            # else:
-            #     avg_times[vuln_type][contract] = float('inf')  # Use infinity for never found
     
     return avg_times
 
+def calculate_confidence_interval(data, confidence_level=0.95):
+    """Calculate confidence interval for a dataset."""
+    if not data or len(data) < 2:
+        return None
+    
+    data = np.array(data)
+    mean = np.mean(data)
+    std_err = stats.sem(data)  # Standard error of the mean
+    
+    # Use t-distribution for small samples, normal for large samples
+    if len(data) < 30:
+        t_val = stats.t.ppf((1 + confidence_level) / 2, len(data) - 1)
+        margin = t_val * std_err
+    else:
+        z_val = stats.norm.ppf((1 + confidence_level) / 2)
+        margin = z_val * std_err
+    
+    return {
+        'mean': mean,
+        'lower': mean - margin,
+        'upper': mean + margin,
+        'n': len(data)
+    }
+
+def calculate_speedups_with_ci(baseline_results: Dict[str, Dict[str, List[int]]], 
+                              method_results: Dict[str, Dict[str, List[int]]],
+                              confidence_level: float = 0.95) -> Dict:
+    """Calculate speedups and their confidence intervals."""
+    
+    speedup_data = {}
+    all_speedups = []
+    
+    for vuln_type in baseline_results.keys():
+        if vuln_type == "__global_metrics__":
+            continue
+            
+        speedup_data[vuln_type] = {}
+        baseline_contracts = baseline_results.get(vuln_type, {})
+        method_contracts = method_results.get(vuln_type, {})
+        
+        # Get contracts that exist in both methods
+        common_contracts = set(baseline_contracts.keys()) & set(method_contracts.keys())
+        
+        for contract in common_contracts:
+            baseline_times = baseline_contracts[contract]
+            method_times = method_contracts[contract]
+            
+            # Skip if either method has no successful runs
+            if not baseline_times or not method_times:
+                continue
+            
+            # Calculate speedup using averages
+            baseline_avg = np.mean(baseline_times)
+            method_avg = np.mean(method_times)
+            
+            if method_avg > 0:
+                speedup = baseline_avg / method_avg
+                speedup_data[vuln_type][contract] = speedup
+                all_speedups.append(speedup)
+    
+    # Calculate overall confidence interval
+    overall_ci = calculate_confidence_interval(all_speedups, confidence_level)
+    
+    return {
+        'speedups': speedup_data,
+        'overall_ci': overall_ci,
+        'all_speedups': all_speedups
+    }
+
 def calculate_speedups(baseline_avgs: Dict[str, Dict[str, float]], 
                       method_avgs: Dict[str, Dict[str, float]]) -> Dict[str, Dict[str, float]]:
-    """Calculate speedup ratios (baseline / method) for each contract and vulnerability type.
-    Values > 1.0 mean method is faster than baseline.
-    Values < 1.0 mean method is slower than baseline."""
+    """Calculate speedup ratios (baseline / method) for each contract and vulnerability type."""
     speedups = {}
     
     # Initialize all vulnerability types from both methods
@@ -170,8 +236,7 @@ def calculate_speedups(baseline_avgs: Dict[str, Dict[str, float]],
                 # Method failed, baseline succeeded
                 speedups[vuln_type][contract] = 0.0
             else:
-                # Both methods succeeded - Method / Baseline ratio
-                # For speedup: > 1.0 means method is faster (baseline/method), < 1.0 means baseline is faster
+                # Both methods succeeded
                 speedups[vuln_type][contract] = baseline_time / method_time
     
     # Add global speedups to the result
@@ -300,8 +365,40 @@ def calculate_geometric_mean(values):
     if not positive_values:
         return None
     
-    # Calculate using numpy's geometric mean function
     return np.exp(np.mean(np.log(positive_values)))
+
+def print_confidence_intervals(ci_result: Dict, confidence_level: float = 0.95):
+    """Print confidence intervals for speedup measurements."""
+    
+    print(f"\n## Speedup Confidence Intervals ({confidence_level*100:.0f}% Confidence)")
+    print("=" * 60)
+    
+    overall_ci = ci_result['overall_ci']
+    all_speedups = ci_result['all_speedups']
+    
+    if overall_ci and all_speedups:
+        print(f"\n### Overall Results")
+        print(f"Mean Speedup: {overall_ci['mean']:.2f}x")
+        print(f"95% Confidence Interval: [{overall_ci['lower']:.2f}x, {overall_ci['upper']:.2f}x]")
+        print(f"Number of measurements: {overall_ci['n']}")
+        
+        # Statistical significance test
+        if overall_ci['lower'] > 1.0:
+            print("✅ **Statistically significant speedup** (lower bound > 1.0x)")
+        elif overall_ci['upper'] < 1.0:
+            print("❌ **Statistically significant slowdown** (upper bound < 1.0x)")
+        else:
+            print("⚠️  **No statistically significant difference** (interval includes 1.0x)")
+        
+        # Additional statistics
+        geo_mean = calculate_geometric_mean(all_speedups)
+        median = np.median(all_speedups)
+        faster_count = sum(1 for s in all_speedups if s > 1.0)
+        
+        print(f"\nAdditional Statistics:")
+        print(f"Geometric Mean: {geo_mean:.2f}x")
+        print(f"Median: {median:.2f}x")
+        print(f"Contracts with speedup: {faster_count}/{len(all_speedups)} ({faster_count/len(all_speedups)*100:.1f}%)")
 
 def print_speedup_summary(speedups: Dict[str, Dict[str, float]], 
                          baseline_avgs: Dict[str, Dict[str, float]], 
@@ -309,8 +406,6 @@ def print_speedup_summary(speedups: Dict[str, Dict[str, float]],
     """Print a summary of speedup statistics by vulnerability type."""
     print("## Speedup Summary (New Method vs Baseline)")
     print("------------------------------------------------")
-    # print("Note: Values > 1.0 mean the new method is faster than baseline")
-    # print("      Values < 1.0 mean the new method is slower than baseline")
     print()
     
     # Calculate overall statistics
@@ -383,11 +478,10 @@ def print_speedup_summary(speedups: Dict[str, Dict[str, float]],
             print(f"Only new method succeeded: {method_only} contracts")
             print(f"Only baseline succeeded: {baseline_only} contracts")
             
-            # Print details for individual contracts (limit to top/bottom 10 if more than 20 contracts)
+            # Print details for individual contracts
             print("\nContract Details (sorted by speedup):")
             sorted_contracts = sorted(contracts.items(), key=lambda x: (0 if x[1] == 0 else float('inf') if x[1] == float('inf') else x[1]), reverse=True)
             
-            # Print all contracts
             for contract, speedup in sorted_contracts:
                 baseline_time = baseline_avgs.get(vuln_type, {}).get(contract, float('inf'))
                 method_time = method_avgs.get(vuln_type, {}).get(contract, float('inf'))
@@ -401,106 +495,8 @@ def print_speedup_summary(speedups: Dict[str, Dict[str, float]],
         else:
             print("No valid speedup data available for this vulnerability type")
 
-def calculate_total_time_speedups(baseline_avgs, method_avgs):
-    """Calculate speedup based on the sum of all execution times."""
-    
-    # Calculate total execution time across all contracts and vulnerability types
-    baseline_total = 0
-    method_total = 0
-    
-    # Track totals by vulnerability type
-    vuln_totals = {}
-    
-    for vuln_type in baseline_avgs.keys():
-        # Skip special keys
-        if vuln_type in ["__global_metrics__", "__global_speedups__"]:
-            continue
-            
-        baseline_vuln_total = 0
-        method_vuln_total = 0
-        
-        for contract, time in baseline_avgs.get(vuln_type, {}).items():
-            if time != float('inf'):
-                baseline_total += time
-                baseline_vuln_total += time
-        
-        for contract, time in method_avgs.get(vuln_type, {}).items():
-            if time != float('inf'):
-                method_total += time
-                method_vuln_total += time
-        
-        # Store totals for this vulnerability type
-        if baseline_vuln_total > 0 or method_vuln_total > 0:
-            if method_vuln_total == 0:
-                method_vuln_total = 0.001  # Avoid division by zero, use 1ms
-                
-            if baseline_vuln_total == 0:
-                baseline_vuln_total = 0.001  # Avoid division by zero, use 1ms
-                
-            vuln_totals[vuln_type] = {
-                'baseline_total': baseline_vuln_total,
-                'method_total': method_vuln_total,
-                'speedup': baseline_vuln_total / method_vuln_total
-            }
-    
-    # Avoid division by zero
-    if method_total == 0:
-        method_total = 0.001  # Use 1ms as minimum
-        
-    if baseline_total == 0:
-        baseline_total = 0.001  # Use 1ms as minimum
-    
-    total_speedup = baseline_total / method_total
-    
-    return {
-        'overall': {
-            'baseline_total': baseline_total,
-            'method_total': method_total,
-            'speedup': total_speedup
-        },
-        'by_vulnerability': vuln_totals
-    }
-
-def print_total_time_speedups(total_speedups):
-    """Print the speedup statistics based on total execution times."""
-    
-    print("\n## Total Execution Time Speedups")
-    print("------------------------------------------------")
-    
-    overall = total_speedups['overall']
-    print(f"Overall Total Time Speedup: {overall['speedup']:.2f}x")
-    print(f"  Baseline Total Time: {overall['baseline_total']:.1f} seconds")
-    print(f"  New Method Total Time: {overall['method_total']:.1f} seconds")
-    print(f"  Time Saved: {overall['baseline_total'] - overall['method_total']:.1f} seconds")
-    
-    print("\n### Total Time by Vulnerability Type")
-    print(f"{'Vulnerability Type':<25} {'Baseline Time (s)':<20} {'Method Time (s)':<20} {'Speedup':<10} {'Time Saved (s)':<15}")
-    print("-" * 90)
-    
-    # Sort vulnerability types by speedup (highest first)
-    sorted_vuln_types = sorted(
-        total_speedups['by_vulnerability'].items(),
-        key=lambda x: x[1]['speedup'],
-        reverse=True
-    )
-    
-    # Create a list of all valid speedups for geometric mean calculation
-    all_speedups = [data['speedup'] for _, data in sorted_vuln_types if 0 < data['speedup'] < float('inf')]
-    if all_speedups:
-        geo_mean = calculate_geometric_mean(all_speedups)
-        print(f"Geometric Mean Speedup across vulnerability types: {geo_mean:.2f}x\n")
-    
-    for vuln_type, data in sorted_vuln_types:
-        baseline_time = data['baseline_total']
-        method_time = data['method_total']
-        speedup = data['speedup']
-        time_saved = baseline_time - method_time
-        
-        print(f"{vuln_type:<25} {baseline_time:<20.1f} {method_time:<20.1f} {speedup:<10.2f}x {time_saved:<15.1f}")
-
-# Modify the process_files function to include the new total time speedup calculation
 def process_files(baseline_file: str, method_file: str):
-    """Process two output files and calculate speedups."""
+    """Process two output files and calculate speedups with confidence intervals."""
     print(f"Processing Baseline file: {baseline_file}")
     baseline_results = parse_vulnerability_file(baseline_file)
     
@@ -514,21 +510,21 @@ def process_files(baseline_file: str, method_file: str):
     # Calculate speedups (baseline / method)
     speedups = calculate_speedups(baseline_avgs, method_avgs)
     
-    # Calculate total time speedups
-    total_speedups = calculate_total_time_speedups(baseline_avgs, method_avgs)
+    # Calculate confidence intervals
+    ci_result = calculate_speedups_with_ci(baseline_results, method_results)
     
     # Print summary
     print_speedup_summary(speedups, baseline_avgs, method_avgs)
     
-    # # Print total time speedups
-    # print_total_time_speedups(total_speedups)
+    # Print confidence intervals
+    print_confidence_intervals(ci_result)
     
     # Print global metrics
     print_global_metrics(baseline_avgs, method_avgs, speedups)
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description='Calculate vulnerability detection speedups of a method against a baseline')
+    parser = argparse.ArgumentParser(description='Calculate vulnerability detection speedups with confidence intervals')
     parser.add_argument('--baseline', required=True, help='File containing baseline method output')
     parser.add_argument('--method', required=True, help='File containing new method output')
     
