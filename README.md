@@ -41,8 +41,23 @@ $ python3.8 ../scripts/plot_b1_bar.py ./llm_only/merged_all_llm_only* --models "
 
 ```
 Regarding the statistical evaluation, proced as bellow:
-```
-```
 
+```
+```
 
 ## RQ3: 
+
+To generate the graphs of this reseach question, follow the instructions:
+
+```
+$ cd rq3
+
+$ tar -xJf *.tar.xz
+
+$ ./create_data.sh
+
+$ python3.8 ../../scripts/plot_b2_graph.py   ./smartian.cov ./confuzzius.cov ./smartchat_cot_gpt4.1mini_0.4.cov ./smartchat_code_gpt4.1mini_0.4.cov ./smartchat_nocode_gpt4.1mini_0.4.cov   -o comparison_plot_combined_gpt.pdf   --baseline-name "Smartian"   --method-names "Confuzzius" "SmartChat CoT Code (gpt4.1mini)" "SmartChat Code (gpt4.1mini)" "SmartChat ABI (gpt4.1mini)"  --left-ylim  60 95    --legend-loc "best"   --subplot-layout   --left-data-files ./smartian.bug ./confuzzius.bug ./smartchat_cot_gpt4.1mini_0.4.bug ./smartchat_code_gpt4.1mini_0.4.bug ./smartchat_nocode_gpt4.1mini_0.4.bug   --left-ylabel "Total # of Bugs found"   --ylabel "Instruction Coverage (%)"
+
+$ python3.8 ../../scripts/plot_b2_graph.py   ./smartian.cov ./confuzzius.cov ./smartchat_cot_Llama3.3-70B_0.4.cov ./smartchat_code_Llama3.3-70B_0.4.cov ./smartchat_nocode_Llama3.3-70B_0.4.cov   -o comparison_plot_combined_llama.pdf   --baseline-name "Smartian"   --method-names "Confuzzius" "SmartChat CoT Code (Llama3.3-70B)" "SmartChat Code (Llama3.3-70B)" "SmartChat ABI (Llama3.3-70B)"  --left-ylim  60 95    --legend-loc "best"   --subplot-layout   --left-data-files ./smartian.bug ./confuzzius.bug ./smartchat_cot_Llama3.3-70B_0.4.bug ./smartchat_code_Llama3.3-70B_0.4.bug ./smartchat_nocode_Llama3.3-70B_0.4.bug   --left-ylabel "Total # of Bugs found"   --ylabel "Instruction Coverage (%)"
+
+```
