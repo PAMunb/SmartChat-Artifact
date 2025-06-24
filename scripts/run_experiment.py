@@ -1,11 +1,11 @@
 import sys, os, subprocess, time
 from common import BASE_DIR, BENCHMARK_DIR
 
-IMAGE_NAME = "smartian-artifact"
+IMAGE_NAME = "smartchat-artifact"
 # procs for 
-MAX_INSTANCE_NUM = 6
+MAX_INSTANCE_NUM = 20
 AVAILABLE_BENCHMARKS = ["B1", "B1-noarg", "B2", "B3", "B4", "B5"]
-SUPPORTED_TOOLS = ["smartian", "sFuzz", "ilf", "mythril", "manticore", "confuzius"]
+SUPPORTED_TOOLS = ["smartian",  "confuzius"]
 
 def run_cmd(cmd_str):
     print("[*] Executing: %s" % cmd_str)
@@ -155,7 +155,6 @@ def main():
         work_targets = fetch_works(targets)
         spawn_containers(work_targets)
         run_fuzzing(benchmark, work_targets, tool, timelimit, opt)
-        # if tool != "confuzius":
         measure_coverage(benchmark, work_targets, tool)
         store_outputs(work_targets, outdir)
         cleanup_containers(work_targets)
