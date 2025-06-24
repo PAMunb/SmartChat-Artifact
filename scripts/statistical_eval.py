@@ -5,387 +5,500 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import argparse
 
+def vargha_delaney_a12(x, y):
+    """
+    Calculate Vargha and Delaney's A12 effect size.
+    
+    A12 represents the probability that a randomly selected observation 
+    from group x will be larger than a randomly selected observation from group y.
+    
+    Args:
+        x: First group (e.g., model performance)
+        y: Second group (e.g., baseline performance)
+        
+    Returns:
+        A12 value between 0 and 1:
+        - 0.5: No difference (random chance)
+        - > 0.5: Group x tends to be larger than group y
+        - < 0.5: Group x tends to be smaller than group y
+        - 1.0: All values in x are larger than all values in y
+        - 0.0: All values in x are smaller than all values in y
+    """
+    x = np.array(x)
+    y = np.array(y)
+    
+    m = len(x)
+    n = len(y)
+    
+    # Count how many times each x[i] is greater than each y[j]
+    greater_count = 0
+    equal_count = 0
+    
+    for xi in x:
+        for yj in y:
+            if xi > yj:
+                greater_count += 1
+            elif xi == yj:
+                equal_count += 1
+    
+    # A12 formula: (greater_count + 0.5 * equal_count) / (m * n)
+    a12 = (greater_count + 0.5 * equal_count) / (m * n)
+    
+    return a12
+
+def interpret_a12_effect_size(a12):
+    """
+    Interpret A12 effect size according to Vargha & Delaney (2000) guidelines.
+    
+    Returns:
+        Tuple of (magnitude, interpretation)
+    """
+    # Convert to absolute difference from 0.5 for magnitude classification
+    abs_diff = abs(a12 - 0.5)
+    
+    if abs_diff < 0.06:  # 0.44 < A12 < 0.56
+        magnitude = "Negligible"
+    elif abs_diff < 0.14:  # 0.36 < A12 < 0.44 or 0.56 < A12 < 0.64
+        magnitude = "Small"
+    elif abs_diff < 0.21:  # 0.29 < A12 < 0.36 or 0.64 < A12 < 0.71
+        magnitude = "Medium"
+    else:  # A12 < 0.29 or A12 > 0.71
+        magnitude = "Large"
+    
+    # Interpretation
+    if a12 > 0.5:
+        interpretation = f"Group 1 superior ({a12:.3f} probability)"
+    elif a12 < 0.5:
+        interpretation = f"Group 2 superior ({1-a12:.3f} probability)"
+    else:
+        interpretation = "No difference (equal performance)"
+    
+    return magnitude, interpretation
+
 def load_and_clean_data(file_path):
     """
     Load and clean the experiment data from a CSV file.
-    The file has columns for model, temperature, bugs found, and run number.
+    The file has columns for model_temp, temperature, bugs found, and run number.
     Assumes no header in the CSV file.
+    
+    Expected format: B1_gpt4.1mini-0.0,"0.0","50.0",1
     """
     # Load data with explicit column names (no header)
     column_names = ['model_temp', 'temperature', 'bugs_found', 'run']
-    df = pd.read_csv(file_path, names=column_names, header=None)
     
-    # Handle case where parsing might have resulted in a single column
-    if len(df.columns) == 1:
-        # Split the single column into multiple columns
-        df = pd.DataFrame([row.split(',') for row in df.iloc[:, 0]], 
-                         columns=column_names)
+    try:
+        df = pd.read_csv(file_path, names=column_names, header=None)
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        raise
     
-    # Clean up values and convert to proper types
-    # Handle both string and numeric types safely
-    def clean_and_convert(column):
-        if pd.api.types.is_string_dtype(column):
-            return column.str.replace('"', '').astype(float)
-        else:
-            return column.astype(float)
+    print(f"Loaded {len(df)} rows from {file_path}")
     
-    # Apply cleaning function to numeric columns
-    df['temperature'] = clean_and_convert(df['temperature'])
-    df['bugs_found'] = clean_and_convert(df['bugs_found'])
+    # Clean up quoted values and convert to proper types
+    def clean_value(value):
+        """Remove quotes and convert to appropriate type"""
+        if isinstance(value, str):
+            cleaned = value.strip().replace('"', '').replace("'", "")
+            try:
+                return float(cleaned)
+            except ValueError:
+                return cleaned
+        return value
+    
+    # Apply cleaning to all columns
+    for col in df.columns:
+        df[col] = df[col].apply(clean_value)
+    
+    # Convert numeric columns
+    df['temperature'] = pd.to_numeric(df['temperature'], errors='coerce')
+    df['bugs_found'] = pd.to_numeric(df['bugs_found'], errors='coerce')
+    df['run'] = pd.to_numeric(df['run'], errors='coerce')
     
     # Extract model name from model_temp column
-    df['model'] = df['model_temp'].apply(lambda x: x.split('-')[0] if isinstance(x, str) else x)
+    def extract_model_name(model_temp_str):
+        if pd.isna(model_temp_str) or not isinstance(model_temp_str, str):
+            return "Unknown"
+        
+        # Remove the B1_ prefix if present
+        if model_temp_str.startswith('B1_'):
+            model_temp_str = model_temp_str[3:]
+        
+        # Split by '-' and take all parts except the last one (which should be temperature)
+        parts = model_temp_str.split('-')
+        if len(parts) > 1:
+            # Rejoin all parts except the last one
+            model_name = '-'.join(parts[:-1])
+        else:
+            model_name = parts[0]
+        
+        return model_name
     
+    df['model'] = df['model_temp'].apply(extract_model_name)
+    
+    # Check for any parsing issues
+    print(f"\nData after cleaning:")
+    print(f"Models found: {sorted(df['model'].unique())}")
+    print(f"Temperature values: {sorted(df['temperature'].unique())}")
+    print(f"Temperature data type: {df['temperature'].dtype}")
+    print(f"Bugs found data type: {df['bugs_found'].dtype}")
+    
+    # Check for any NaN values
+    nan_counts = df.isnull().sum()
+    if nan_counts.any():
+        print(f"\nWarning: Found NaN values:")
+        print(nan_counts[nan_counts > 0])
+    
+    # Remove any rows with NaN values in critical columns
+    initial_rows = len(df)
+    df = df.dropna(subset=['model', 'temperature', 'bugs_found'])
+    final_rows = len(df)
+    
+    if initial_rows != final_rows:
+        print(f"Removed {initial_rows - final_rows} rows with missing values")
+        
     return df
 
-def perform_mann_whitney_test(df, model1, model2, temp_value):
+def load_baseline_data(baseline_file_path):
     """
-    Perform Mann-Whitney U test to compare bug counts between two models at a specific temperature.
-    
-    Args:
-        df: DataFrame containing experiment data
-        model1, model2: Names of models to compare
-        temp_value: Temperature value to filter on
+    Load baseline data from CSV file.
+    Expected format: method_name,bugs_found,run
+    Example: dfa,44.0,1
+    """
+    try:
+        # Use same column names as main data
+        baseline_column_names = ['method_name', 'bugs_found', 'run']
+        baseline_df_raw = pd.read_csv(baseline_file_path, names=baseline_column_names, header=None)
         
-    Returns:
-        U-statistic, p-value, and sample sizes for each group
-    """
-    # Filter data for the specified models and temperature
-    group1 = df[(df['model'] == model1) & (df['temperature'] == temp_value)]['bugs_found']
-    group2 = df[(df['model'] == model2) & (df['temperature'] == temp_value)]['bugs_found']
-    
-    # Perform Mann-Whitney U test
-    u_stat, p_value = stats.mannwhitneyu(group1, group2, alternative='two-sided')
-    
-    return u_stat, p_value, len(group1), len(group2)
+        # Clean the baseline data the same way
+        def clean_baseline_value(value):
+            if isinstance(value, str):
+                cleaned = value.strip().replace('"', '').replace("'", "")
+                try:
+                    return float(cleaned)
+                except ValueError:
+                    return cleaned
+            return value
+        
+        # Apply cleaning to baseline data
+        for col in baseline_df_raw.columns:
+            baseline_df_raw[col] = baseline_df_raw[col].apply(clean_baseline_value)
+        
+        # Convert bugs_found to numeric
+        baseline_df_raw['bugs_found'] = pd.to_numeric(baseline_df_raw['bugs_found'], errors='coerce')
+        baseline_df_raw['run'] = pd.to_numeric(baseline_df_raw['run'], errors='coerce')
+        
+        # Extract just the bugs_found values
+        baseline_data = baseline_df_raw['bugs_found'].dropna()
+        baseline_method_name = baseline_df_raw['method_name'].iloc[0] if len(baseline_df_raw) > 0 else "Baseline"
+        
+        print(f"Baseline method: {baseline_method_name}")
+        print(f"Baseline data: {len(baseline_data)} measurements")
+        print(f"Baseline statistics:")
+        print(f"  Mean: {baseline_data.mean():.2f}")
+        print(f"  Median: {baseline_data.median():.2f}")
+        print(f"  Std Dev: {baseline_data.std():.2f}")
+        print(f"  Range: {baseline_data.min():.1f} - {baseline_data.max():.1f}")
+        print(f"  Values: {baseline_data.tolist()}")
+        
+        return baseline_data, baseline_method_name
+        
+    except Exception as e:
+        print(f"Error loading baseline data: {e}")
+        print("Expected format: method_name,bugs_found,run")
+        print("Example: dfa,44.0,1")
+        raise
 
-def compare_with_traditional_method(df, traditional_bugs=44):
+def compare_with_baseline_mannwhitney(df, baseline_data, baseline_name="Baseline"):
     """
-    Compare each model and temperature combination with the traditional method result.
-    Traditional method is represented by a fixed value (44 bugs).
+    Compare each model and temperature combination with baseline data using Mann-Whitney U test
+    and Vargha-Delaney A12 effect size.
     
     Args:
         df: DataFrame containing experiment data
-        traditional_bugs: Number of bugs found by the traditional method
+        baseline_data: Series or array of baseline measurements
+        baseline_name: Name for the baseline method
         
     Returns:
         DataFrame with comparison results
     """
-    # Get unique models and temperature values
     models = sorted(df['model'].unique())
     temp_values = sorted(df['temperature'].unique())
     
-    # Create a constant series to represent traditional method
-    # It needs to be the same length as the largest group for comparison
-    max_runs = df.groupby(['model', 'temperature']).size().max()
-    traditional_method = pd.Series([traditional_bugs] * max_runs)
-    
-    # Store results
     results = []
     
-    # Compare each model and temperature with traditional method
+    print(f"\nComparing each model-temperature combination with {baseline_name} using Mann-Whitney U test...")
+    print(f"Baseline sample: {len(baseline_data)} measurements, mean={np.mean(baseline_data):.2f}")
+    print(f"Effect size: Vargha-Delaney A12 (probability of superiority)")
+    
     for model in models:
         for temp in temp_values:
-            # Get the bugs found for this model and temperature
             model_bugs = df[(df['model'] == model) & (df['temperature'] == temp)]['bugs_found']
             
             if len(model_bugs) > 0:
-                # Match the length to perform the test
-                current_traditional = traditional_method[:len(model_bugs)]
-                
                 # Perform Mann-Whitney U test
-                u_stat, p_value = stats.mannwhitneyu(model_bugs, current_traditional, alternative='two-sided')
+                u_stat, p_value = stats.mannwhitneyu(model_bugs, baseline_data, alternative='two-sided')
                 
-                # Calculate mean and other statistics
+                # Calculate Vargha-Delaney A12 effect size
+                a12 = vargha_delaney_a12(model_bugs, baseline_data)
+                a12_magnitude, a12_interpretation = interpret_a12_effect_size(a12)
+                
+                # Calculate descriptive statistics
                 mean_bugs = model_bugs.mean()
-                diff_from_traditional = mean_bugs - traditional_bugs
-                percent_diff = (diff_from_traditional / traditional_bugs) * 100
+                baseline_mean = np.mean(baseline_data)
+                diff_from_baseline = mean_bugs - baseline_mean
+                percent_diff = (diff_from_baseline / baseline_mean) * 100
                 
-                # Determine significance
+                # Determine significance and performance
                 is_significant = "Yes" if p_value < 0.05 else "No"
-                better_than_traditional = "Better" if mean_bugs > traditional_bugs else "Worse"
+                if is_significant == "Yes":
+                    performance = "Better" if mean_bugs > baseline_mean else "Worse"
+                else:
+                    performance = "No significant difference"
                 
                 results.append({
                     'Model': model,
-                    'Temperature': temp,
-                    'Mean Bugs Found': round(mean_bugs, 2),
-                    'Traditional Method Bugs': traditional_bugs,
-                    'Difference': round(diff_from_traditional, 2),
-                    'Percent Difference': round(percent_diff, 2),
-                    'U-statistic': u_stat,
-                    'p-value': round(p_value, 6),
-                    'Sample Size': len(model_bugs),
-                    'Significant (α=0.05)': is_significant,
-                    'Performance': better_than_traditional if is_significant == "Yes" else "No significant difference"
+                    'Temp': temp,
+                    'Mean_Bugs': round(mean_bugs, 1),
+                    'Baseline_Mean': round(baseline_mean, 1),
+                    'Difference': round(diff_from_baseline, 1),
+                    'Percent_Diff': round(percent_diff, 1),
+                    'A12': round(a12, 3),
+                    'A12_Magnitude': a12_magnitude,
+                    'p_value': round(p_value, 4),
+                    'Significant': is_significant,
+                    'Performance': performance
                 })
+                
+                print(f"  {model} @ temp {temp}: mean={mean_bugs:.1f}, A12={a12:.3f} ({a12_magnitude}), p={p_value:.4f}, {performance}")
     
     return pd.DataFrame(results)
 
-def compare_all_combinations(df):
+def create_baseline_comparison_plots(df, baseline_data, baseline_name="Baseline"):
     """
-    Perform Mann-Whitney U tests for all model and temperature combinations.
-    Each model is compared with every other model at each temperature.
+    Create visualizations comparing all models to the baseline.
     """
-    # Get unique models and temperature values
     models = sorted(df['model'].unique())
     temp_values = sorted(df['temperature'].unique())
+    baseline_mean = np.mean(baseline_data)
     
-    # Store results
-    results = []
+    # 1. Boxplot comparison with baseline line
+    plt.figure(figsize=(15, 8))
+    ax = sns.boxplot(x='temperature', y='bugs_found', hue='model', data=df)
+    plt.axhline(y=baseline_mean, color='red', linestyle='--', linewidth=2, 
+                label=f'{baseline_name} (mean: {baseline_mean:.1f})')
     
-    # Perform tests for all combinations
-    for temp in temp_values:
-        for i, model1 in enumerate(models):
-            for model2 in models[i+1:]:  # Compare with models we haven't compared yet
-                u_stat, p_value, n1, n2 = perform_mann_whitney_test(df, model1, model2, temp)
-                
-                # Determine significance
-                is_significant = "Yes" if p_value < 0.05 else "No"
-                
-                # Get mean values for both groups for easier interpretation
-                mean1 = df[(df['model'] == model1) & (df['temperature'] == temp)]['bugs_found'].mean()
-                mean2 = df[(df['model'] == model2) & (df['temperature'] == temp)]['bugs_found'].mean()
-                
-                results.append({
-                    'Temperature': temp,
-                    'Model 1': model1,
-                    'Model 2': model2,
-                    'Mean Bugs (Model 1)': round(mean1, 2),
-                    'Mean Bugs (Model 2)': round(mean2, 2),
-                    'U-statistic': u_stat,
-                    'p-value': round(p_value, 6),
-                    'Sample Size 1': n1,
-                    'Sample Size 2': n2,
-                    'Significant (α=0.05)': is_significant
-                })
+    plt.title(f'Model Performance vs {baseline_name} Across Temperatures', fontsize=16)
+    plt.xlabel('Temperature', fontsize=12)
+    plt.ylabel('Number of Bugs Found', fontsize=12)
     
-    return pd.DataFrame(results)
-
-def visualize_comparison_by_temperature(df, traditional_bugs=44):
-    """
-    Create visualizations comparing all models at each temperature.
-    Generates a separate figure for each temperature setting.
-    Includes a horizontal line for the traditional method benchmark.
-    """
-    # Get unique temperature values
-    temp_values = sorted(df['temperature'].unique())
+    # Enhance legend
+    handles, labels = ax.get_legend_handles_labels()
+    plt.legend(handles + [plt.Line2D([0], [0], color='red', linestyle='--')], 
+              labels + [f'{baseline_name} (mean: {baseline_mean:.1f})'], 
+              title='Method', bbox_to_anchor=(1.05, 1), loc='upper left')
     
-    # Create a visualization for each temperature
-    for temp in temp_values:
-        # Filter data for the current temperature
-        temp_data = df[df['temperature'] == temp]
-        
-        # Create figure
-        plt.figure(figsize=(10, 6))
-        
-        # Create boxplot comparing models at this temperature
-        ax = sns.boxplot(x='model', y='bugs_found', data=temp_data)
-        
-        # Add horizontal line for traditional method
-        plt.axhline(y=traditional_bugs, color='r', linestyle='--', label='Traditional Method (44 bugs)')
-        
-        plt.title(f'Comparison of Bugs Found at Temperature {temp}')
-        plt.xlabel('Model')
-        plt.ylabel('Number of Bugs Found')
-        plt.xticks(rotation=45)
-        plt.legend()
-        
-        # Annotate the traditional method line
-        plt.text(len(temp_data['model'].unique()) - 1, traditional_bugs + 1, 'Traditional Method (44 bugs)', 
-                 color='r', ha='right', va='bottom')
-        
-        plt.tight_layout()
-        plt.savefig(f'temperature_{temp}_comparison.png')
-        plt.close()
+    plt.tight_layout()
+    plt.savefig('baseline_comparison_boxplot.png', dpi=300, bbox_inches='tight')
+    plt.close()
     
-    # Create a heatmap of p-values
-    models = sorted(df['model'].unique())
-    
-    # Create multi-index DataFrame for heatmap
-    heatmap_data = []
-    for temp in temp_values:
-        for i, model1 in enumerate(models):
-            for j, model2 in enumerate(models):
-                if i < j:  # Only calculate once per pair (upper triangle)
-                    u_stat, p_value, n1, n2 = perform_mann_whitney_test(df, model1, model2, temp)
-                    heatmap_data.append({
-                        'Temperature': temp,
-                        'Model 1': model1,
-                        'Model 2': model2,
-                        'p-value': p_value
-                    })
-    
-    heatmap_df = pd.DataFrame(heatmap_data)
-    
-    # Create pivot table for heatmap
-    for temp in temp_values:
-        temp_heatmap = heatmap_df[heatmap_df['Temperature'] == temp].pivot_table(
-            values='p-value', index='Model 1', columns='Model 2')
-        
-        # Plot heatmap
-        plt.figure(figsize=(8, 6))
-        sns.heatmap(temp_heatmap, annot=True, cmap='coolwarm_r', vmin=0, vmax=0.05, 
-                   center=0.025, linewidths=0.5)
-        plt.title(f'P-values for Mann-Whitney U Tests at Temperature {temp}')
-        plt.tight_layout()
-        plt.savefig(f'pvalue_heatmap_temp_{temp}.png')
-        plt.close()
-
-def create_comparison_to_traditional_plot(df, traditional_bugs=44):
-    """
-    Create a unified visualization comparing all models and temperatures to the traditional method.
-    """
-    # Get unique models and temperatures
-    models = sorted(df['model'].unique())
-    temp_values = sorted(df['temperature'].unique())
-    
-    # Prepare data for plotting
+    # 2. A12 effect size heatmap
     comparison_data = []
-    
     for model in models:
         for temp in temp_values:
             model_bugs = df[(df['model'] == model) & (df['temperature'] == temp)]['bugs_found']
             if len(model_bugs) > 0:
-                mean_bugs = model_bugs.mean()
+                a12 = vargha_delaney_a12(model_bugs, baseline_data)
                 comparison_data.append({
                     'Model': model,
                     'Temperature': temp,
-                    'Mean Bugs Found': mean_bugs,
-                    'Difference from Traditional': mean_bugs - traditional_bugs
+                    'A12': a12
                 })
     
     comparison_df = pd.DataFrame(comparison_data)
-    
-    # Create the plot
-    plt.figure(figsize=(14, 8))
-    
-    # Bar plot showing difference from traditional method
-    g = sns.catplot(
-        data=comparison_df,
-        kind="bar",
-        x="Model", y="Difference from Traditional", hue="Temperature",
-        palette="viridis", alpha=.8, height=6, aspect=2
-    )
-    
-    plt.axhline(y=0, color='r', linestyle='--', alpha=0.7)
-    plt.title('Difference in Bugs Found Compared to Traditional Method (44 bugs)', fontsize=15)
-    plt.ylabel('Difference in Bugs Found', fontsize=12)
-    plt.xlabel('Model', fontsize=12)
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
-    
-    # Adjust layout and save
-    plt.tight_layout()
-    plt.savefig('comparison_to_traditional_method.png')
-    plt.close()
-    
-    # Create heatmap showing percentage improvement
-    pivot_df = comparison_df.copy()
-    pivot_df['Percent Improvement'] = (pivot_df['Difference from Traditional'] / traditional_bugs) * 100
-    
-    # Create pivot table for heatmap
-    heatmap_data = pivot_df.pivot_table(
-        values='Percent Improvement', 
+    heatmap_data = comparison_df.pivot_table(
+        values='A12', 
         index='Model', 
         columns='Temperature'
     )
     
-    # Plot heatmap
     plt.figure(figsize=(10, 6))
-    sns.heatmap(heatmap_data, annot=True, cmap='RdYlGn', center=0, fmt='.1f',
-               linewidths=0.5, cbar_kws={'label': 'Percent Improvement Over Traditional Method'})
-    plt.title('Percent Improvement Over Traditional Method (44 bugs) by Model and Temperature')
+    sns.heatmap(heatmap_data, annot=True, cmap='RdYlGn', center=0.5, fmt='.3f',
+               linewidths=0.5, cbar_kws={'label': 'Vargha-Delaney A12 Effect Size'},
+               vmin=0, vmax=1)
+    plt.title(f'Vargha-Delaney A12 Effect Size vs {baseline_name}\n(0.5=no difference, >0.5=model better, <0.5=baseline better)', fontsize=14)
     plt.tight_layout()
-    plt.savefig('percent_improvement_heatmap.png')
+    plt.savefig('baseline_a12_heatmap.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # 3. Bar plot showing mean differences from baseline
+    comparison_data_extended = []
+    for model in models:
+        for temp in temp_values:
+            model_bugs = df[(df['model'] == model) & (df['temperature'] == temp)]['bugs_found']
+            if len(model_bugs) > 0:
+                mean_bugs = model_bugs.mean()
+                comparison_data_extended.append({
+                    'Model': model,
+                    'Temperature': temp,
+                    'Mean Bugs Found': mean_bugs,
+                    'Difference from Baseline': mean_bugs - baseline_mean
+                })
+    
+    comparison_df_extended = pd.DataFrame(comparison_data_extended)
+    
+    plt.figure(figsize=(14, 8))
+    sns.barplot(data=comparison_df_extended, x="Model", y="Difference from Baseline", 
+                hue="Temperature", palette="viridis")
+    plt.axhline(y=0, color='red', linestyle='--', alpha=0.7, linewidth=2)
+    plt.title(f'Difference in Bugs Found Compared to {baseline_name} (mean: {baseline_mean:.1f})', fontsize=16)
+    plt.ylabel('Difference in Bugs Found', fontsize=12)
+    plt.xlabel('Model', fontsize=12)
+    plt.grid(axis='y', linestyle='--', alpha=0.3)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig('baseline_difference_barplot.png', dpi=300, bbox_inches='tight')
     plt.close()
 
-def run_analysis(file_path='experiment_data.csv', traditional_bugs=44):
+def generate_summary_report(results_df, baseline_name, baseline_mean):
     """
-    Main function to run the analysis.
+    Generate a text summary report of the analysis using A12 effect sizes.
     """
+    print("\n" + "="*80)
+    print("MANN-WHITNEY U TEST WITH VARGHA-DELANEY A12 EFFECT SIZE ANALYSIS")
+    print("="*80)
+    
+    print(f"\nBaseline: {baseline_name} (mean: {baseline_mean:.2f} bugs)")
+    print(f"Total model-temperature combinations tested: {len(results_df)}")
+    print(f"Effect size measure: Vargha-Delaney A12 (probability of superiority)")
+    
+    # Count significant results
+    significant_better = len(results_df[(results_df['Significant'] == 'Yes') & 
+                                       (results_df['Performance'] == 'Better')])
+    significant_worse = len(results_df[(results_df['Significant'] == 'Yes') & 
+                                      (results_df['Performance'] == 'Worse')])
+    not_significant = len(results_df[results_df['Significant'] == 'No'])
+    
+    print(f"\nResults Summary:")
+    print(f"  • Significantly better than baseline: {significant_better}")
+    print(f"  • Significantly worse than baseline: {significant_worse}")
+    print(f"  • No significant difference: {not_significant}")
+    
+    # Best performing combinations
+    print(f"\nTop 5 Best Performing Model-Temperature Combinations:")
+    top_performers = results_df.nlargest(5, 'Mean_Bugs')[
+        ['Model', 'Temp', 'Mean_Bugs', 'A12', 'A12_Magnitude', 'p_value', 'Performance']
+    ]
+    print(top_performers.to_string(index=False))
+    
+    # A12 magnitude distribution
+    print(f"\nVargha-Delaney A12 Effect Size Distribution:")
+    a12_counts = results_df['A12_Magnitude'].value_counts()
+    for magnitude, count in a12_counts.items():
+        print(f"  • {magnitude}: {count} combinations")
+    
+    # Statistical significance summary with A12
+    if significant_better > 0 or significant_worse > 0:
+        print(f"\nStatistically Significant Results (p < 0.05):")
+        sig_results = results_df[results_df['Significant'] == 'Yes'][
+            ['Model', 'Temp', 'Mean_Bugs', 'Difference', 'A12', 'A12_Magnitude', 'p_value', 'Performance']
+        ].sort_values('p_value')
+        print(sig_results.to_string(index=False))
+    
+    # A12 interpretation guide
+    print(f"\nVargha-Delaney A12 Interpretation Guide:")
+    print(f"  • A12 = 0.5: No difference (random chance)")
+    print(f"  • A12 > 0.5: Model tends to outperform baseline")
+    print(f"  • A12 < 0.5: Baseline tends to outperform model")
+    print(f"  • A12 = 1.0: Model always outperforms baseline")
+    print(f"  • A12 = 0.0: Baseline always outperforms model")
+    print(f"  • Magnitude thresholds: Negligible (<0.56), Small (<0.64), Medium (<0.71), Large (≥0.71)")
+
+def run_analysis(file_path, baseline_data_file):
+    """
+    Main function to run the Mann-Whitney U test baseline comparison analysis with A12 effect size.
+    """
+    print("="*80)
+    print("MANN-WHITNEY U TEST WITH VARGHA-DELANEY A12 EFFECT SIZE")
+    print("="*80)
+    
     print("Loading and processing data...")
     df = load_and_clean_data(file_path)
     
     # Display basic data info
-    print("\nData Overview:")
+    print(f"\n" + "="*50)
+    print("DATA OVERVIEW")
+    print("="*50)
     print(f"Total records: {len(df)}")
-    print(f"Models found: {df['model'].unique()}")
+    print(f"Models found: {list(df['model'].unique())}")
     print(f"Temperature values: {sorted(df['temperature'].unique())}")
     
-    # Compare with traditional method
-    print(f"\nComparing with traditional method ({traditional_bugs} bugs)...")
-    traditional_comparison = compare_with_traditional_method(df, traditional_bugs)
+    print(f"\nRuns per model-temperature combination:")
+    run_counts = df.groupby(['model', 'temperature']).size().reset_index(name='runs')
+    run_counts_pivot = run_counts.pivot(index='model', columns='temperature', values='runs')
+    print(run_counts_pivot.to_string())
     
-    # Display traditional method comparison results
-    print("\nTraditional Method Comparison Results:")
-    pd.set_option('display.max_rows', None)  # Show all rows
-    pd.set_option('display.width', 150)      # Wider display
-    print(traditional_comparison.to_string(index=False))
+    # Validate data consistency
+    print(f"\nData validation:")
+    expected_runs_per_combo = 5
+    inconsistent_runs = run_counts[run_counts['runs'] != expected_runs_per_combo]
+    if len(inconsistent_runs) > 0:
+        print(f"WARNING: Found model-temperature combinations with != {expected_runs_per_combo} runs:")
+        print(inconsistent_runs.to_string(index=False))
+    else:
+        print(f"✓ All model-temperature combinations have exactly {expected_runs_per_combo} runs")
     
-    # Save traditional method comparison to CSV
-    traditional_comparison.to_csv("traditional_method_comparison.csv", index=False)
-    print("\nTraditional method comparison saved to 'traditional_method_comparison.csv'")
+    # Load baseline data
+    print(f"\n" + "="*50)
+    print("LOADING BASELINE DATA")
+    print("="*50)
+    baseline_data, baseline_method_name = load_baseline_data(baseline_data_file)
     
-    # Run Mann-Whitney U tests for all model pairs at each temperature
-    print("\nPerforming Mann-Whitney U tests for all model and temperature combinations...")
-    results = compare_all_combinations(df)
+    # Perform Mann-Whitney U tests with A12
+    print(f"\n" + "="*50)
+    print("MANN-WHITNEY U TEST WITH A12 EFFECT SIZE ANALYSIS")
+    print("="*50)
+    results = compare_with_baseline_mannwhitney(df, baseline_data, baseline_method_name)
     
-    # Display results
-    print("\nMann-Whitney U Test Results:")
+    # Display results in compact format
+    print(f"\nMann-Whitney U Test Results with Vargha-Delaney A12:")
+    pd.set_option('display.max_rows', None)
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.width', 140)
+    pd.set_option('display.max_colwidth', 15)
     print(results.to_string(index=False))
     
-    # Save results to CSV
-    results.to_csv("mann_whitney_results.csv", index=False)
-    print("\nResults saved to 'mann_whitney_results.csv'")
+    # Save detailed results to CSV
+    output_filename = "mannwhitney_a12_baseline_comparison_results.csv"
+    results.to_csv(output_filename, index=False)
+    print(f"\nDetailed results saved to '{output_filename}'")
     
-    # Generate summary statistics by model and temperature
-    print("\nSummary Statistics by Model and Temperature:")
-    summary = df.groupby(['model', 'temperature'])['bugs_found'].agg(['count', 'mean', 'std', 'min', 'median', 'max']).reset_index()
+    # Generate summary statistics
+    print(f"\nSummary Statistics by Model and Temperature:")
+    summary = df.groupby(['model', 'temperature'])['bugs_found'].agg([
+        'count', 'mean', 'std', 'min', 'median', 'max'
+    ]).round(2).reset_index()
     print(summary.to_string(index=False))
     
-    # # Save summary to CSV
-    # summary.to_csv("summary_statistics.csv", index=False)
-    # print("\nSummary statistics saved to 'summary_statistics.csv'")
+    # Save summary to CSV
+    summary.to_csv("summary_statistics.csv", index=False)
+    print(f"Summary statistics saved to 'summary_statistics.csv'")
     
-    # # Create visualizations for all models
-    # print("\nGenerating visualizations for all models...")
-    # plt.figure(figsize=(15, 10))
+    # Generate summary report
+    generate_summary_report(results, baseline_method_name, baseline_data.mean())
     
-    # # Boxplot comparing all models across temperatures
-    # ax = sns.boxplot(x='temperature', y='bugs_found', hue='model', data=df)
-    
-    # # Add horizontal line for traditional method
-    # plt.axhline(y=traditional_bugs, color='r', linestyle='--', label='Traditional Method')
-    
-    # plt.title('Comparison of Bugs Found Across All Models and Temperatures')
-    # plt.xlabel('Temperature')
-    # plt.ylabel('Number of Bugs Found')
-    
-    # # Add the traditional method to the legend
-    # handles, labels = ax.get_legend_handles_labels()
-    # ax.legend(handles=handles, labels=labels + ['Traditional Method (44 bugs)'], 
-    #          title='Model', bbox_to_anchor=(1.05, 1), loc='upper left')
-    
-    # plt.tight_layout()
-    # plt.savefig('all_models_comparison.png')
-    # plt.close()
-    # print("Visualizations saved as 'all_models_comparison.png'")
-    
-    # # Generate per-temperature comparisons
-    # visualize_comparison_by_temperature(df, traditional_bugs)
-    # print("Per-temperature visualizations and p-value heatmaps generated")
-    
-    # # Generate comparison to traditional method visualizations
-    # create_comparison_to_traditional_plot(df, traditional_bugs)
-    # print("Traditional method comparison visualizations generated")
+    # Create visualizations
+    print(f"\nGenerating visualizations...")
+    create_baseline_comparison_plots(df, baseline_data, baseline_method_name)
+    print("Visualizations saved:")
+    print("  • baseline_comparison_boxplot.png")
+    print("  • baseline_a12_heatmap.png")
+    print("  • baseline_difference_barplot.png")
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Compare model performance against baseline using Mann-Whitney U test with Vargha-Delaney A12 effect size.')
+    parser.add_argument('file', help='CSV file containing experiment data')
+    parser.add_argument('baseline_data', help='CSV file containing baseline sample data (format: method_name,bugs_found,run)')
     
-    parser = argparse.ArgumentParser(description='Make a U-test for input file.')
-    parser.add_argument('file', help='File to process')
-    parser.add_argument('--baseline', '-b', default=44.0, type=float, 
-                        help='Baseline value for comparison')
-    
-    args = parser.parse_args()    
-    # Run the analysis with the traditional method baseline of 44 bugs
-    print(args)
-    run_analysis(args.file, args.baseline)
+    args = parser.parse_args()
+    print(f"Arguments: {args}")
+    run_analysis(args.file, args.baseline_data)
