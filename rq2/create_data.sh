@@ -127,7 +127,7 @@ for model in "${models[@]}"; do
             identifier=$(extract_identifier "$(basename "$dir")")
             smartian_suffix=$(extract_smartian_suffix "$filename")
             
-            result=$(python2.7 ../scripts/plot_b1_cve.py "$filename" 2>/dev/null | grep 60m | cut -c 6-)
+            result=$(python3.8 ../scripts/plot_b1_cve.py "$filename" 2>/dev/null | grep 60m | cut -c 6-)
             
             if [ ! -z "$result" ]; then
                 echo "B1_${model}-${temp},\"${temp}\",\"${result}\",${smartian_suffix}" >> "$csv_file"
@@ -142,7 +142,7 @@ for model in "${models[@]}"; do
                 touch "$merged_file"
             fi
             
-            python2.7 ../scripts/plot_b1_cve.py $dir/result-dfa-impact/*/B1-smartian-* >> "$merged_file" 2>/dev/null
+            python3.8 ../scripts/plot_b1_cve.py $dir/result-dfa-impact/*/B1-smartian-* >> "$merged_file" 2>/dev/null
             echo "-----------------------------------" >> "$merged_file"
         fi
     done

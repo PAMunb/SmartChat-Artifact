@@ -16,7 +16,7 @@ fi
 TEST_DIRS=$(find $TEST_DIR -mindepth 1 -maxdepth 1 -type d)
 
 # Check if results directory exists
-if ls $OUTDIR/result-B!-compare 1> /dev/null 2>&1; then
+if ls $OUTDIR/result-B1-compare 1> /dev/null 2>&1; then
     echo "$OUTDIR/result-B1-compare exists, please remove it."
     exit 1
 fi
