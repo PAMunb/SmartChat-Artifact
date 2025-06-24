@@ -4,7 +4,14 @@ This repository contains the experimental artifacts for the paper.
 
 ## Setup
 
-1. Install [Poetry](https://python-poetry.org/docs/#installation)
+$ Clone this repo.
+$ cd SmartChat-Artifact
+$ git submodule update --init --recursive
+
+1. Install [Python 3.8]
+2. Install [Poetry](https://python-poetry.org/docs/#installation)
+3. Install [.NET net5.0] to run SmartChat
+4. Build SmartChat (cd SmartChat && make)
 
 ---
 
