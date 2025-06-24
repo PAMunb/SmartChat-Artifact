@@ -8,7 +8,7 @@ This repository contains the experimental artifacts for the paper.
 
 ---
 
-## RQ1: Bug Detection and Coverage Analysis
+## RQ1: LLMs for Initial Fuzzing Seed Generation
 
 To generate the graphs for this research question, follow the steps below:
 
@@ -22,7 +22,7 @@ tar -xJf data.tar.xz
 
 ---
 
-## RQ2: LLM Seed Effectiveness
+## RQ2: Ablation and Temperature comparison
 
 To generate the graphs for this research question, follow these steps:
 
@@ -50,7 +50,7 @@ python3.8 ../scripts/plot_b1_bar.py ./llm_only/merged_all_llm_only* \
 
 ---
 
-## RQ3: SmartChat vs Baselines
+## RQ3: Impact of Source Code Inclusion
 
 To generate the graphs for this research question, follow the steps below:
 
