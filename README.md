@@ -32,10 +32,10 @@ make
 Then, install Python dependencies using Poetry:
 
 ```bash
-cd script
+cd <repo-root-dir>/SmartChat/script
 poetry install
 
-cd ../scripts
+cd <repo-root-dir>/scripts
 poetry install
 ```
 
