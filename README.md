@@ -1,4 +1,4 @@
-# Artifacts for the Paper "*Title Pending*"
+# Artifacts for the Paper "*Exploring LLMs for Initial Seed Augmentation in Smart Contract Fuzzing with Vulnerability-Guided Prioritization*"
 
 This repository contains the experimental artifacts supporting our research.
 
