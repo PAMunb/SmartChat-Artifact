@@ -11,7 +11,7 @@ To reproduce the results, follow the steps below:
 ### 1. Clone the Repository and Submodules
 
 ```bash
-git clone https://github.com/your-org/SmartChat-Artifact.git
+git clone https://github.com/pamunb/SmartChat-Artifact.git
 cd SmartChat-Artifact
 git submodule update --init --recursive
 ```
