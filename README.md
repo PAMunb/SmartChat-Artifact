@@ -1,4 +1,4 @@
-# Artifacts for the Paper "*Title Pending*"
+# Artifacts for the Paper "*Exploring LLMs for Initial Seed Augmentation in Smart Contract Fuzzing with Vulnerability-Guided Prioritization*"
 
 This repository contains the experimental artifacts supporting our research.
 
@@ -11,7 +11,7 @@ To reproduce the results, follow the steps below:
 ### 1. Clone the Repository and Submodules
 
 ```bash
-git clone https://github.com/your-org/SmartChat-Artifact.git
+git clone https://github.com/pamunb/SmartChat-Artifact.git
 cd SmartChat-Artifact
 git submodule update --init --recursive
 ```
@@ -142,4 +142,8 @@ python3.8 ../../scripts/plot_b2_graph.py \
     ./smartchat_nocode_Llama3.3-70B_0.4.bug \
   --left-ylabel "Total # of Bugs found" \
   --ylabel "Instruction Coverage (%)"
+```
+### Statistical Evaluation
+
+```bash
 ```
