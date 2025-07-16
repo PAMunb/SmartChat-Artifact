@@ -61,7 +61,7 @@ To generate the results and plots:
 
 ```bash
 cd rq2
-tar -xJf *.tar.xz
+find . -name "*.tar.xz" -exec tar -xJf {} \;
 
 ./create_data.sh ./output_B1_llm_only_buggain llm_only_buggain
 ./create_data.sh ./output_B1_llm_only llm_only
