@@ -96,7 +96,7 @@ To extract and prepare data:
 
 ```bash
 cd rq3
-tar -xJf *.tar.xz
+find . -name "*.tar.xz" -exec tar -xJf {} \;
 ./create_data.sh
 ```
 
