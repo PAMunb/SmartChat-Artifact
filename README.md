@@ -47,7 +47,7 @@ To generate the graphs for RQ1:
 
 ```bash
 cd rq1
-tar -xJf data.tar.xz
+find . -name "*.tar.xz" -exec tar -xJf {} \;
 ./get_metrics.sh
 ./get_coverage.sh
 ./graphs.sh
