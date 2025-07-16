@@ -103,7 +103,7 @@ tar -xJf *.tar.xz
 ### Plotting for GPT4.1-Mini:
 
 ```bash
-python3.8 ../../scripts/plot_b2_graph.py \
+python3.8 ../scripts/plot_b2_graph.py \
   ./smartian.cov ./confuzzius.cov \
   ./smartchat_cot_gpt4.1mini_0.4.cov \
   ./smartchat_code_gpt4.1mini_0.4.cov \
@@ -125,7 +125,7 @@ python3.8 ../../scripts/plot_b2_graph.py \
 ### Plotting for Llama3.3-70B:
 
 ```bash
-python3.8 ../../scripts/plot_b2_graph.py \
+python3.8 ../scripts/plot_b2_graph.py \
   ./smartian.cov ./confuzzius.cov \
   ./smartchat_cot_Llama3.3-70B_0.4.cov \
   ./smartchat_code_Llama3.3-70B_0.4.cov \
