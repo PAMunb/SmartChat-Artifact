@@ -110,14 +110,11 @@ python3.8 ../scripts/plot_b2_graph.py \
   ./smartchat_nocode_gpt4.1mini_0.4.cov \
   -o comparison_plot_combined_gpt.pdf \
   --baseline-name "Smartian" \
-  --method-names "Confuzzius" "SmartChat CoT Code (gpt4.1mini)" "SmartChat Code (gpt4.1mini)" "SmartChat ABI (gpt4.1mini)" \
+  --method-names "ConFuzzius" "SᴍᴀʀᴛCʜᴀᴛ CoT Code (GPT4.1-Mini)" "SᴍᴀʀᴛCʜᴀᴛ Code (GPT4.1-Mini)" "SᴍᴀʀᴛCʜᴀᴛ ABI (GPT4.1-Mini)" \
   --left-ylim 60 95 \
-  --legend-loc "best" \
+  --legend-loc "lower center" \
   --subplot-layout \
-  --left-data-files ./smartian.bug ./confuzzius.bug \
-    ./smartchat_cot_gpt4.1mini_0.4.bug \
-    ./smartchat_code_gpt4.1mini_0.4.bug \
-    ./smartchat_nocode_gpt4.1mini_0.4.bug \
+  --left-data-files ./smartian.bug ./confuzzius.bug ./smartchat_cot_gpt4.1mini_0.4.bug ./smartchat_code_gpt4.1mini_0.4.bug ./smartchat_nocode_gpt4.1mini_0.4.bug \
   --left-ylabel "Total # of Bugs found" \
   --ylabel "Instruction Coverage (%)"
 ```
@@ -125,21 +122,18 @@ python3.8 ../scripts/plot_b2_graph.py \
 ### Plotting for Llama3.3-70B:
 
 ```bash
-python3.8 ../scripts/plot_b2_graph.py \
+  python3.8 ../scripts/plot_b2_graph.py \
   ./smartian.cov ./confuzzius.cov \
   ./smartchat_cot_Llama3.3-70B_0.4.cov \
   ./smartchat_code_Llama3.3-70B_0.4.cov \
   ./smartchat_nocode_Llama3.3-70B_0.4.cov \
   -o comparison_plot_combined_llama.pdf \
   --baseline-name "Smartian" \
-  --method-names "Confuzzius" "SmartChat CoT Code (Llama3.3-70B)" "SmartChat Code (Llama3.3-70B)" "SmartChat ABI (Llama3.3-70B)" \
+  --method-names "ConFuzzius" "SᴍᴀʀᴛCʜᴀᴛ CoT Code (Llama3.3-70B)" "SᴍᴀʀᴛCʜᴀᴛ Code (Llama3.3-70B)" "SᴍᴀʀᴛCʜᴀᴛ ABI (Llama3.3-70B)" \
   --left-ylim 60 95 \
-  --legend-loc "best" \
+  --legend-loc "lower center" \
   --subplot-layout \
-  --left-data-files ./smartian.bug ./confuzzius.bug \
-    ./smartchat_cot_Llama3.3-70B_0.4.bug \
-    ./smartchat_code_Llama3.3-70B_0.4.bug \
-    ./smartchat_nocode_Llama3.3-70B_0.4.bug \
+  --left-data-files ./smartian.bug ./confuzzius.bug ./smartchat_cot_Llama3.3-70B_0.4.bug ./smartchat_code_Llama3.3-70B_0.4.bug ./smartchat_nocode_Llama3.3-70B_0.4.bug \
   --left-ylabel "Total # of Bugs found" \
   --ylabel "Instruction Coverage (%)"
 ```
