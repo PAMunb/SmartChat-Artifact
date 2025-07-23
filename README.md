@@ -83,10 +83,15 @@ python3.8 ../scripts/plot_b1_bar.py ./llm_only/merged_all_llm_only* \
 
 ### Statistical Evaluation
 
+For comparison with the Smartian Data Flow version:
 ```bash
 python3.8 ../scripts/statistical_eval.py ./llm_only_buggain/llm_only_buggain.csv base_dfa.csv
+```
+For comparison with the Smartian Random Seeds version:
+```bash
 python3.8 ../scripts/statistical_eval.py ./llm_only_buggain/llm_only_buggain.csv base_rand.csv
 ```
+
 
 ---
 
