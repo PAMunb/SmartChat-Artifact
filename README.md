@@ -92,7 +92,6 @@ For comparison with the Smartian Random Seeds version:
 python3.8 ../scripts/statistical_eval.py ./llm_only_buggain/llm_only_buggain.csv base_rand.csv
 ```
 
-
 ---
 
 ## RQ3: Impact of Source Code Inclusion
@@ -144,5 +143,12 @@ python3.8 ../scripts/plot_b2_graph.py \
 ```
 ### Statistical Evaluation
 
+For comparison with the Smartian:
 ```bash
+python3.8 ../scripts/statistical_eval.py ./smartchat.csv ./smartian.csv
 ```
+For comparison with the ConFuzzius:
+```bash
+python3.8 ../scripts/statistical_eval.py ./smartchat.csv ./confuzzius.csv
+```
+
