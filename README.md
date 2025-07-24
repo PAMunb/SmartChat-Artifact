@@ -3,6 +3,10 @@
 This repository contains the experimental artifacts supporting our research.
 
 ---
+## System Requirements
+- Ubuntu 18.04+ (or similar Linux distribution)
+- 8GB+ RAM, 20GB+ disk space
+- Python 3.8+
 
 ## Setup Instructions
 
