@@ -98,7 +98,7 @@ python3.8 ../scripts/statistical_eval.py ./llm_only_buggain/llm_only_buggain.csv
 
 ---
 
-## RQ3: Impact of Source Code Inclusion
+## RQ3: Comparison with Smartian and ConFuzzius
 
 To extract and prepare data:
 
