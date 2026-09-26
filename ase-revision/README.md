@@ -22,6 +22,9 @@ function does, and that is domain knowledge rather than memorization.
 
 | Archive | Unpacked | What it holds |
 |---|---|---|
+| `e1-batch2-campaigns.tar.xz` | 560 MB | the other 1,740 campaigns: the same arms with Llama3.3-70B seeds, and Smartian's own data-flow seeds as the validity control |
+| `e1-trials.csv`, `e1-trial-status.txt` | — | the state of every one of the 2,610 trials, and the exclusion list derived from it |
+| `e1-analysis-inputs.tar.xz` | — | the CVE addresses mapped onto the renamed arms, the campaign logs and the scripts |
 | `e1-batch1-campaigns-gpt4.1mini.tar.xz` | 281 MB | 870 one-hour campaigns: 3 arms x 58 contracts x 5 repetitions, with SmartChat seeds from GPT-4.1-mini. Per trial: `log.txt`, `cov.txt`, `testcase/`, `bug/`, `with_dfeed.txt`, `without_dfeed.txt` |
 | `e1-seeds.tar.xz` | 288 MB | the 30 seed sets (17,334 seeds) and the raw model responses they came from |
 | `e1-corpus-logs-scripts.tar.xz` | 14 MB | the three-arm corpus (`.sol`, `.abi`, `.bin` per contract per arm), the campaign and generation logs, and the scripts |
@@ -73,7 +76,9 @@ coverage are flat across arms; arm C is about 46% slower to the first alarm than
 With five repetitions a test of this kind can only rule out large differences, so these
 p-values are reported alongside effect sizes and must not be read as proof of equivalence.
 
-Batch 2 — the same arms with Llama3.3-70B seeds, plus Smartian's own data-flow seeds as a
-validity control — is still running. The control matters: Smartian does not read identifiers,
-so its results must be approximately flat across the three arms; if they are not, the
-transformation changed something material and the experiment is invalid.
+Full results, including the Llama3.3-70B arms and the Smartian validity control, are in
+[E1-protocol.md](E1-protocol.md), together with the renamer, the equivalence check, the
+detection criterion and how it was carried across the arms, the excluded contracts, and the
+statistics. In short: detection is 48.8/47.6/47.4 for GPT-4.1-mini and 48.8/47.8/47.4 for
+Llama3.3-70B across arms A, B and C, and Smartian's identifier-blind data-flow mode is flat
+(48.0/48.2/47.6) — which is what licenses reading the other rows.
