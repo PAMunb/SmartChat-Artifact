@@ -29,7 +29,25 @@ function does, and that is domain knowledge rather than memorization.
 | `e1-seeds.tar.xz` | 288 MB | the 30 seed sets (17,334 seeds) and the raw model responses they came from |
 | `e1-corpus-logs-scripts.tar.xz` | 14 MB | the three-arm corpus (`.sol`, `.abi`, `.bin` per contract per arm), the campaign and generation logs, and the scripts |
 
-`SHA256SUMS` covers all three.
+| `e4-gemini38-campaigns-and-seeds.tar.xz` | 24 MB | the currency check: the same Bench58 campaigns with seeds from Gemini-3.8-Flash (arm A, five repetitions, 57 contracts), and the seed sets they used |
+
+`SHA256SUMS` covers them all.
+
+## Currency check (Gemini-3.8-Flash)
+
+Reported in the manuscript's Threats to Validity. Over the 52 contracts common to this
+configuration and the Smartian data-flow baseline of the renaming experiment, the newer model
+detects 48.4 bugs against 47.0 (p = 0.007, A12 = 1.00), reaches the first bug in 133 s against
+214 s (p = 0.008), and covers marginally more instructions (p = 0.016) -- consistently ahead,
+by a small margin. `compare-configs.py` reproduces this from the two campaign directories.
+
+Two things about the data are worth knowing before reusing it. Around half of the requests to
+this model returned no content at all -- a safety refusal for prompts it accepts on a later
+attempt -- so the seed corpus was obtained with the retry limit raised from five attempts to
+fifteen, and the refusals are counted in the generation logs. The contract `2018-14003` was
+refused persistently, dozens of consecutive attempts across four of the five repetitions with a
+single success in the fifth, and is therefore absent from this configuration; an empty seed
+directory crashes the fuzzer outright, so it is left out rather than run empty.
 
 ## How it was produced
 
